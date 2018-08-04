@@ -10,3 +10,15 @@
 #' @docType package
 #' @seealso \code{\link{use_ArcGIS}}
 NULL
+
+#' ArcPy Module
+#'
+#' The arcpy module
+#'
+#' @export
+arcpy = NULL
+
+.onLoad <- function(libname, pkgname) {
+  arcpy <<- reticulate::import("arcpy", delay_load = TRUE)
+}
+

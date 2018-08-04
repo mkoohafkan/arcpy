@@ -7,7 +7,6 @@
 #'
 #' @export
 da_fields = function(table.path) {
-  arcpy = reticulate::import("arcpy")
   field.objects = arcpy$ListFields(table.path)
   unlist(lapply(field.objects, function(x) x$name))
 }
@@ -59,7 +58,6 @@ fields_exist = function(table.path, fields) {
 #' @importFrom stats setNames
 #' @export
 da_read = function(table.path, fields, simplify = TRUE) {
-  arcpy = reticulate::import("arcpy")
   if (missing(fields))
     fields = da_fields(table.path)
   if (is.numeric(fields))
@@ -115,7 +113,6 @@ da_read = function(table.path, fields, simplify = TRUE) {
 #' @importFrom stats setNames
 #' @export
 da_update = function(table.path, d) {
-  arcpy = reticulate::import("arcpy")
   fields = names(d)
   fields_exist(table.path, fields)
 
@@ -134,7 +131,6 @@ da_update = function(table.path, d) {
 
 
 da_insert = function(table.path, d) {
-  arcpy = reticulate::import("arcpy")
   fields = names(d)
   fields_exist(table.path, fields)
   cursor = arcpy$da$InsertCursor(table.path, fields)

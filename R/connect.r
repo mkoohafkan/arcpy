@@ -13,21 +13,22 @@ find_ArcGIS = function(pro = FALSE) {
     if (.Platform$r_arch == "x64") {
       python_folder = file.path("C:/Python27",
         dir("C:/Python27")[grepl("ArcGIS.*x64", dir("C:/Python27"))])
-      arch = "64bit"
     } else {
       python_folder = file.path("C:/Python27",
         dir("C:/Python27")[grepl("ArcGIS.*", dir("C:/Python27")) &
           !(grepl("ArcGIS.*x64", dir("C:/Python27")))])
-      arch = "32bit"
     }
     if (length(python_folder) > 1)
       warning("Multiple ArcGIS Desktop Python binaries found.")
     if (length(python_folder) < 1)
       stop("Could not find ArcGIS Desktop Python binary.")
-    return(python_folder)
   } else {
-    stop("ArcGIS Pro not supported")
+    python_folder = file.path("C:/Program Files/ArcGIS/Pro/bin",
+      "Python/envs/arcgispro-py3")
+    if (!dir.exists(python_folder))
+      stop("Could not find ArcGIS Pro Python binary.")
   }
+  python_folder
 }
 
 #' Connect to ArcGIS Python
@@ -58,6 +59,6 @@ use_ArcGIS = function(python, pro = FALSE) {
     python = find_ArcGIS(pro)
   if (length(python) > 1)
     warning("Multiple Python binaries provided. Using ", python[[1]])
-  reticulate::use_python(python[[1]], require = TRUE)
+  reticulate::use_python(python[[1]], required = TRUE)
   invisible(NULL)
 }

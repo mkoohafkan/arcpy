@@ -1,5 +1,4 @@
-ops = reticulate::import("operator")
-
+ops = reticulate::import("operator", delay_load = TRUE)
 
 #' @export
 "+.python.builtin.Raster" <- function(a, b) {
@@ -26,7 +25,7 @@ ops = reticulate::import("operator")
 
 #' @export
 "^.python.builtin.Raster" <- function(a, b) {
-  ops$xor(a, b)
+  ops$pow(a, b)
 }
 
 #' @export
@@ -82,9 +81,4 @@ ops = reticulate::import("operator")
 #' @export
 "%%.python.builtin.Raster" <- function(a, b) {
   ops$mod(a, b)
-}
-
-#' @export
-"pow.python.builtin.Raster" <- function(a, b) {
-  ops$pow(a, b)
 }

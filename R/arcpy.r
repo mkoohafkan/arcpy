@@ -18,7 +18,8 @@ NULL
 #' @export
 arcpy = NULL
 
+#' @importFrom reticulate import
 .onLoad <- function(libname, pkgname) {
-  arcpy <<- reticulate::import("arcpy", delay_load = TRUE)
+  arcpy <<- import("arcpy", delay_load = TRUE)
 }
 

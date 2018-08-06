@@ -56,6 +56,7 @@ fields_exist = function(table.path, fields) {
 #' }
 #'
 #' @importFrom stats setNames
+#' @importFrom reticulate %as% iterate
 #' @export
 da_read = function(table.path, fields, simplify = TRUE) {
   if (missing(fields))
@@ -64,12 +65,16 @@ da_read = function(table.path, fields, simplify = TRUE) {
     fields = da_fields(table.path)[fields]
   # check that fields are valid
   fields_exist(table.path, fields)
-  cursor = arcpy$da$SearchCursor(table.path, fields)
-  res = lapply(reticulate::iterate(cursor, function(x) x),
-    setNames, fields)
-  col.classes = unique(do.call(rbind, lapply(res, lapply, length)))
+  with(arcpy$da$SearchCursor(table.path, fields) %as% cursor, {
+    res = iterate(cursor, function(x) x)
+  })
+  res = lapply(res, setNames, fields)
   if (!simplify)
     return(res)
+  # replace NULLs with NAs
+  res = lapply(res, function(x) lapply(x, function(xx)
+    ifelse(is.null(xx), NA, xx)))
+  col.classes = unique(do.call(rbind, lapply(res, lapply, length)))
   not.valid = sapply(col.classes, function(x) any(x > 1))
   if (any(not.valid) && simplify) {
 #    if (!requireNamespace("tibble")) {
@@ -111,36 +116,58 @@ da_read = function(table.path, fields, simplify = TRUE) {
 #' }
 #'
 #' @importFrom stats setNames
+#' @importFrom reticulate %as% iter_next
 #' @export
 da_update = function(table.path, d) {
+
   fields = names(d)
   fields_exist(table.path, fields)
 
-  cursor = arcpy$da$UpdateCursor(table.path, fields)
-  i = 0
-  while (TRUE) {
-    item = reticulate::iter_next(cursor)
+  with(arcpy$da$UpdateCursor(table.path, fields) %as% cursor, {
+    i = 0
+    while (TRUE) {
+    item = iter_next(cursor)
     if (is.null(item))
       break
-    i = i + 1
-    cursor$updateRow(setNames(as.list(d[i,fields]), NULL))
-  }
+      i = i + 1
+    cursor$updateRow(setNames(as.list(d[i, fields]), NULL))
+    }
+  })
   invisible(table.path)
 }
 
 
 
+#' Table Insertion with arcpy.da
+#'
+#' Insert records into a table (e.g. attribute table of a layer) 
+#' with the arcpy.da module.
+#'
+#' @param table.path The file path to the table.
+#' @param d The data to write to \code{table.path}, with the same number 
+#'   of rows as the table. Column names must match field names 
+#'   of the table.
+#' @return (Invisible) The path to the table, i.e. \code{table.path}.
+#'
+#' @examples
+#' \dontrun{
+#' layer = "path/to/table"
+#' fields = c("VALUE", "NOTE")
+#' d = da_read(layer, fields)
+#' add.d = data.frame(VALUE = 5, NOTE = "NEW",
+#'   stringsAsFactors = FALSE)
+#' da_insert(layer, add.d)
+#' }
+#'
+#' @importFrom stats setNames
+#' @importFrom reticulate %as%
+#' @export
 da_insert = function(table.path, d) {
   fields = names(d)
   fields_exist(table.path, fields)
-  cursor = arcpy$da$InsertCursor(table.path, fields)
-  i = 0
-  while (TRUE) {
-    item = reticulate::iter_next(cursor)
-    if (is.null(item))
-      break
-    i = i + 1
-    cursor$insertRow(setNames(as.list(d[i,fields]), NULL))
-  }
+  with(arcpy$da$InsertCursor(table.path, fields) %as% cursor, {
+    for (i in nrow(d))
+      cursor$insertRow(setNames(as.list(d[i, fields]), NULL))
+  })
   invisible(table.path)
 }

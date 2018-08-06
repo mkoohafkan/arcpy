@@ -83,16 +83,17 @@ find_desktop = function() {
 #'
 #' }
 #'
+#' @importFrom reticulate use_python use_condaenv
 #' @export
 use_ArcGIS = function(pro = FALSE, python, conda_exe, conda_env) {
   if (!pro) {
     if (missing(python))
       python = find_ArcGIS(pro)
-    reticulate::use_python(python[[1]], required = TRUE)
+    use_python(python[[1]], required = TRUE)
   } else {
     conda_exe = find_conda()
     conda_env = find_pro()
-    reticulate::use_condaenv(conda_env[[1]], conda_exe, required = TRUE)
+    use_condaenv(conda_env[[1]], conda_exe, required = TRUE)
   }
   invisible(NULL)
 }

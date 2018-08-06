@@ -166,7 +166,7 @@ da_insert = function(table.path, d) {
   fields = names(d)
   fields_exist(table.path, fields)
   with(arcpy$da$InsertCursor(table.path, fields) %as% cursor, {
-    for (i in nrow(d))
+    for (i in 1:nrow(d))
       cursor$insertRow(setNames(as.list(d[i, fields]), NULL))
   })
   invisible(table.path)

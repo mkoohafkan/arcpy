@@ -74,24 +74,25 @@ da_read = function(table.path, fields, simplify = TRUE) {
   # replace NULLs with NAs
   res = lapply(res, function(x) lapply(x, function(xx)
     ifelse(is.null(xx), NA, xx)))
-  col.classes = unique(do.call(rbind, lapply(res, lapply, length)))
-  not.valid = sapply(col.classes, function(x) any(x > 1))
+  col.classes = unique(do.call(rbind, lapply(res, lapply, is.atomic)))
+  not.valid = sapply(col.classes, isFALSE)
   if (any(not.valid) && simplify) {
-#    if (!requireNamespace("tibble")) {
+    if (!requireNamespace("tibble")) {
       warning('Package "tibble" is required to read list columns. ',
         "The following fields could not be read: ",
         paste(fields[not.valid], collapse = ", "))
       do.call(rbind, lapply(res, function(x)
         as.data.frame(x[!not.valid], stringsAsFactors = FALSE)))
-#      } else {
+      } else {
 #        for (i in seq_along(res))
 #          res[[i]][not.valid] = lapply(res[[i]][not.valid], list)
-#        do.call(rbind, lapply(res, function(x)
-#          as_tibble(x, stringsAsFactors = FALSE)))
-#      }
-  } else
+        do.call(rbind, lapply(res, function(x)
+          as_tibble(x, stringsAsFactors = FALSE)))
+      }
+  } else {
     do.call(rbind, lapply(res, function(x)
       as.data.frame(x[!not.valid], stringsAsFactors = FALSE)))
+  }
 }
 
 #' Update Table with arcpy.da

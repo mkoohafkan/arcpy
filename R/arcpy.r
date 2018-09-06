@@ -13,7 +13,7 @@ NULL
 
 #' ArcPy Module
 #'
-#' The arcpy module
+#' The arcpy module.
 #'
 #' @export
 arcpy = NULL

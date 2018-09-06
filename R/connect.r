@@ -12,7 +12,7 @@ find_ArcGIS = function(pro = FALSE) {
   if (pro)
     find_pro()
   else
-    find_dekstop()
+    find_desktop()
 }
 
 find_conda = function() {

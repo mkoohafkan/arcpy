@@ -6,8 +6,8 @@
 \alias{arcpyr}
 \title{R Interface to ArcPy}
 \description{
-An R interface for the ArcGIS Python module \code{arcpy}. Relies on 
-the virtual Python environment provided by \code{PythonInR} to generate 
+An R interface for the ArcGIS Python module \code{arcpy}. Relies on
+the virtual Python environment provided by \code{PythonInR} to generate
 function interfaces for \code{arcpy} tools and environment settings.
 \code{arcpy} toolboxes and extensions are accessed via an R environment
 object. See the vignette to get started.

@@ -9,6 +9,6 @@
 arcpy
 }
 \description{
-The arcpy module
+The arcpy module.
 }
 \keyword{datasets}

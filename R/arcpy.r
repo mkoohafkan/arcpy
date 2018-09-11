@@ -8,6 +8,7 @@
 #' @name arcpyr-package
 #' @aliases arcpyr
 #' @docType package
+#' @md
 #' @seealso \code{\link{use_ArcGIS}}
 NULL
 

@@ -11,6 +11,33 @@ da_fields = function(table.path) {
   unlist(lapply(field.objects, function(x) x$name))
 }
 
+#- List Field Tokens
+#-
+#- Return a list of possible field tokens.
+#-
+#- @return A vector of field names.
+#-
+#- @details Possible tokens are listed below. Note that not
+#-  all tokens are valid for all geometries.
+#-
+#- * OID@ The OBJECTID for the feature.
+#- * SHAPE@ A geometry object for the feature.
+#- * SHAPE@XY A tuple of the feature 's centroid x,y coordinates.  
+#- * SHAPE@TRUECENTROID A tuple of the feature' s true centroid x, y coordinates.
+#- * SHAPE@X A double of the feature 's x-coordinate.  
+#- * SHAPE@Y A double of the feature' s y - coordinate.
+#- * SHAPE@Z A double of the feature 's z-coordinate.  
+#- * SHAPE@M A double of the feature' s m - value.
+#- * SHAPE@JSON The esri JSON string representing the geometry.
+#- * SHAPE@WKB The well-known binary(WKB) representation for OGC geometry. It provides a portable representation of a geometry value as a contiguous stream of bytes.
+#- * SHAPE@WKT The well-known text(WKT) representation for OGC geometry. It provides a portable representation of a geometry value as a text string.
+#- * SHAPE@AREA A double of the feature 's area.  
+#- * SHAPE@LENGTH A double of the feature' s length.
+#-
+tokens = c("OID@", "SHAPE@", "SHAPE@XY", "SHAPE@TRUECENTROID", 
+    "SHAPE@X", "SHAPE@Y", "SHAPE@Z", "SHAPE@M", "SHAPE@JSON", 
+    "SHAPE@WKB", "SHAPE@WKT", "SHAPE@AREA", "SHAPE@LENGTH")
+
 #- Fields Exist
 #-
 #- Check if specified fields are present in a table.
@@ -22,7 +49,7 @@ da_fields = function(table.path) {
 #-
 fields_exist = function(table.path, fields) {
   actual = da_fields(table.path)
-  res = fields %in% actual
+  res = fields %in% c(actual, tokens)
   if (!all(res))
     stop("Specified fields do not exist in table: ", 
       paste(fields[!res], sep = ", "), call. = FALSE)
@@ -73,7 +100,7 @@ da_read = function(table.path, fields, simplify = TRUE) {
     return(res)
   # replace NULLs with NAs
   res = lapply(res, function(x) lapply(x, function(xx)
-    ifelse(is.null(xx), NA, xx)))
+    if (is.null(xx)) NA else xx))
   col.classes = unique(do.call(rbind, lapply(res, lapply, is.atomic)))
   not.valid = sapply(col.classes, isFALSE)
   if (any(not.valid) && simplify) {
@@ -84,10 +111,10 @@ da_read = function(table.path, fields, simplify = TRUE) {
       do.call(rbind, lapply(res, function(x)
         as.data.frame(x[!not.valid], stringsAsFactors = FALSE)))
       } else {
-#        for (i in seq_along(res))
-#          res[[i]][not.valid] = lapply(res[[i]][not.valid], list)
+        for (i in seq_along(res))
+          res[[i]][not.valid] = lapply(res[[i]][not.valid], list)
         do.call(rbind, lapply(res, function(x)
-          as_tibble(x, stringsAsFactors = FALSE)))
+          tibble::as_tibble(x, stringsAsFactors = FALSE)))
       }
   } else {
     do.call(rbind, lapply(res, function(x)
@@ -131,7 +158,7 @@ da_update = function(table.path, d) {
     if (is.null(item))
       break
       i = i + 1
-    cursor$updateRow(setNames(as.list(d[i, fields]), NULL))
+		cursor$updateRow(lapply(1:ncol(d), function(j) d[[j]][[i]]))
     }
   })
   invisible(table.path)
@@ -168,7 +195,7 @@ da_insert = function(table.path, d) {
   fields_exist(table.path, fields)
   with(arcpy$da$InsertCursor(table.path, fields) %as% cursor, {
     for (i in 1:nrow(d))
-      cursor$insertRow(setNames(as.list(d[i, fields]), NULL))
+			cursor$insertRow(lapply(1:ncol(d), function(j) d[[j]][[i]]))
   })
   invisible(table.path)
 }

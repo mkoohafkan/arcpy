@@ -1,15 +1,16 @@
 ---
-title: "Working with geometries"
+title: "Manipulating geometries"
 output: html_document
 ---
+
 
 ```{r}
 library(reticulate)
 devtools::load_all()
-use_ArcGIS()
+use_ArcGIS(T)
 
-fc = "C:/Users/q0hecmck/Documents/ArcGIS/Default.gdb/fargo_xs_mod"
-new.fc = file.path(dirname(fc), "fargo_xs_sq")
+fc = "C:/Projects/test/shapefiles/CA_Counties/CA_Counties_TIGER2016.shp"
+new.fc = file.path(dirname(fc), "counties_mod.shp")
 arcpy$management$CopyFeatures(fc, new.fc)
 
 with(arcpy$da$UpdateCursor(new.fc, "SHAPE@") %as% rows, {
@@ -40,10 +41,6 @@ with(arcpy$da$UpdateCursor(new.fc, "SHAPE@") %as% rows, {
 
 
 ```{r}
-fc = da_read(fc, "SHAPE@")
-
-rows = arcpy$da$UpdateCursor(new.fc, "SHAPE@")
-g = iter_next(rows)[[1]]
 
 scale_geom = function(g) {
   arr_feat = arcpy$Array()
@@ -52,30 +49,22 @@ scale_geom = function(g) {
     arr_part = arcpy$Array()
     pnts = iterate(part, function(pnt) {
       x = pnt$X
-      y = pnt$Y * 10.0
+      y = pnt$Y / 10.0
       arcpy$Point(x, y)
     })
     lapply(pnts, function(part) arr_part$add(part))
     arr_part
   })
   lapply(parts, function(feat) arr_feat$add(feat))
-  arr_feat
+  arcpy$Polygon(arr_feat)
 }
 
-  while (!is.null(part)) {
-    arr_part = arcpy$Array()
-    pnt = iter_next(part)
-    while (!is.null(pnt)) {
-      x = pnt$X
-      y = pnt$Y * 10.0
-      arr_part$add(arcpy$Point(x, y))
-      pnt = iter_next(part)
-    }
-    arr_feat$add(arr_part)
-    part = iter_next(feat)
-    }
-    polygon = arcpy$Polygon(arr_feat)
 
+fc.d = da_read(new.fc, "SHAPE@")
+fc.d[["SHAPE@"]] = lapply(fc.d[["SHAPE@"]], scale_geom)
 
-    }
+da_update(new.fc, fc.d)
+
+arcpy$management$RecalculateFeatureClassExtent(new.fc)
+
 ```

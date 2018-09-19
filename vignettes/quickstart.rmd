@@ -1,0 +1,71 @@
+---
+title: "Quickstart to arcpy"
+output: html_document
+author: Michael Koohafkan
+---
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+Getting started with `arcpy` in R is easy. Use the `use_ArcGIS()` 
+function to connect to an ArcGIS installation. If you don't specify
+a path, `arcpy` will search in the standard installation folders.
+ArcGIS Desktop provides a stand-alone python installation while
+ArcGIS Pro provides support for Conda virtual environments.
+
+```{r}
+library(arcpy)
+
+# Search for the ArcGIS Desktop Python 2.x installation
+use_ArcGIS() 
+
+# Search for the default ArcGIS Pro Conda Python 3.x environment
+use_ArcGIS(pro = TRUE) 
+```
+
+The `arcpy` package automatically provides a `reticulate` module object 
+called `arcpy`. This object provides the interface to ArcGIS.
+
+```{r}
+arcpy
+## Module(arcpy)
+
+arcpy$GetInstallInfo()$ProductName
+## [1] "ArcGISPro"
+
+arcpy$ProductInfo()
+## [1] "ArcEditor"
+```
+
+Once you are connected to your ArcGIS installation, using `arcpy` functions
+and classes is as seamless as using any other Python module via `reticulate`.
+The `arcpy` pacakge also re-exports reticulate's `py_help` function so that 
+you can access the `arcpy` documentation.
+
+
+```{r}
+# get and set the arcpy environment
+arcpy$env$workspace
+## NULL
+arcpy$env$workspace = tempdir()
+
+# get help on arcpy functions
+py_help(arcpy$Exists)
+
+## Help on function Exists in module arcpy:
+## 
+## Exists(dataset)
+##     Exists(dataset)
+## 
+##     Determines the existence of the specified data object. Tests for the
+##     existence of feature classes, tables, datasets, shapefiles, workspaces,
+##     layers, and files in the current workspace. The function returns a
+##     Boolean indicating if the element exists.
+## 
+##       dataset(String):
+##     The name, path, or both of a feature class, table, dataset, layer,
+##     shapefile, workspace, or file to be checked for existence.
+```
+
+Happy scripting!

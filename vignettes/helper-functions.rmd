@@ -1,0 +1,71 @@
+---
+title: "Using the helper functions"
+output: html_document
+author: Michael Koohafkan
+---
+
+The `arcpy` package provides a small number of helper functions to make
+working with spatial layer geometries and attributes easier. These 
+helper functions are essentially wrappers for the arpcy Data Access module
+that support simple transfer of information between spatial layers and R
+data frames.
+
+To demonstrate the helper functions, we'll set up a workspace with a copy
+of the California County Boundaries shapefile (available on https://data.ca.gov).
+A copy of this file is included with the `arcpy` package.
+
+```{r}
+# set workspace
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+
+# copy feature for example
+fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+  "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+```
+
+
+Reading attribute tables is accomplished using the function `da_read`.
+
+```{r}
+da_read(fc, fields = c("FID", "NAME"))
+```
+
+Tokens are also supported by `arcpy`. If you have the `tibble` package installed, 
+you can read geometry tokens as list columns.
+
+```{r}
+da_read(fc, fields = c("OID@", "NAME", "SHAPE@TRUECENTROID"))
+```
+
+You can use `da_update` to modify attributes.
+
+```{r}
+d = da_read(fc, fields = "NAME")
+d['NAME'] = paste(d$NAME, "County, CA")
+da_update(fc, d)
+```
+
+You can also use `da_update` to add additional fields to a table, provided 
+you create the field first.
+
+```{r}
+d = da_read(fc, c("ALAND", "AWATER"))
+d["FRACLAND"] = d$ALAND / (d$ALAND + d$AWATER)
+
+arcpy$management$AddField(fc, "FRACLAND", "FLOAT")
+da_update(fc, d["FRACLAND"])
+```
+
+You can use `da_drop` and `da_insert` to remove and add rows, respectively.
+
+```{r}
+d = da_read(fc)
+# extract second row
+new.d = d[2,]
+# drop second row
+da_drop(fc, 2)
+# add the row back
+da_insert(fc, new.d)
+```
+

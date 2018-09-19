@@ -1,0 +1,105 @@
+---
+title: "Raster algebra with arcpy"
+output: html_document
+author: Michael Koohafkan
+---
+
+
+The `arcpy` package defines methods for working with arcpy `Raster` 
+objects. This is achieved through use of the Python `operator` module
+and simple S3 class definitions. This vignette demonstrates basic usage
+of arcpy Raster Algebra from R. First, we'll set up a workspace and create
+some temporary rasters.
+
+```{r}
+library(arcpy)
+use_ArcGIS()
+
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+
+cellSize = 2
+outExtent = arcpy$Extent(0, 0, 250, 250)
+
+# Check out the ArcGIS Spatial Analyst extension license
+arcpy$CheckOutExtension("Spatial")
+
+# Execute CreateConstantRaster
+raster1 = arcpy$sa$CreateConstantRaster(12, "FLOAT",
+  cellSize, outExtent)
+
+raster2 = arcpy$sa$CreateConstantRaster(6, "FLOAT",
+  cellSize, outExtent)
+```
+
+## Math operations
+
+All of the basic mathematical operations are supported. Usage
+follows the 
+[R operator symbology](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html), 
+rather than the 
+[Python operator symbology](https://docs.python.org/3.4/library/operator.html#mapping-operators-to-functions)
+or [arcpy operator symbology](http://pro.arcgis.com/en/pro-app/arcpy/spatial-analyst/an-overview-of-the-map-algebra-operators.htm)
+(e.g., Modulus is achieved using `%%`, not `%`, and powe).
+
+```{r}
+raster3 = raster1 + raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 - raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 * raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 / raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 ^ raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 %/% raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = -raster1
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+# compound statements work too
+raster3 = (raster1 / raster2) * (raster2 - 3.0)
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+```
+
+## Logical operators
+
+Logical operators work on rasters too, with the exception of 
+`!` (not). This is the same as in Python.
+
+```{r}
+raster3 = raster1 > raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 < raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 != raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster1 == raster2
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+``
+raster3 = raster1 >= 12
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = raster2 <= 6
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+# compound statements work as expected too 
+raster3 = (raster1 > 10) & (raster2 > 10)
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+raster3 = (raster1 > 10) | (raster2 > 10)
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
+
+# this will give an error
+raster3 = !(raster2 > 10)
+```

@@ -24,3 +24,6 @@ arcpy = NULL
   arcpy <<- import("arcpy", delay_load = TRUE)
 }
 
+#' @importFrom reticulate py_help
+#' @export
+reticulate::py_help

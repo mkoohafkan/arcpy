@@ -7,26 +7,26 @@
 use_ArcGIS(pro = FALSE, python, conda_exe, conda_env)
 }
 \arguments{
-\item{pro}{If \code{TRUE}, attempt to connect to an ArcGIS Pro 
-Python distribution. Otherwise, attempt to connect to an ArcGIS 
+\item{pro}{If \code{TRUE}, attempt to connect to an ArcGIS Pro
+Python distribution. Otherwise, attempt to connect to an ArcGIS
 Desktop Python distribution. Ignored if \code{python} is provided.}
 
 \item{python}{Path to ArcGIS Python binary.
-If missing, the function will attempt to automatically 
+If missing, the function will attempt to automatically
 detect an appropriate Python installation.}
 
 \item{conda_exe}{For use with ArcGIS Pro only. The
 path to the ArcGIS Pro Conda executable.
-If missing, the function will attempt to automatically 
+If missing, the function will attempt to automatically
 detect the ArcGIS Pro Conda executable.}
 
 \item{conda_env}{For use with ArcGIS Pro only. The
 the ArcGIS Pro Conda environment to use.
-If missing, the function will attempt to automatically 
+If missing, the function will attempt to automatically
 detect an appropriate Conda environment.}
 
 \item{python}{Path to ArcGIS Python binary.
-If missing, the function will attempt to automatically 
+If missing, the function will attempt to automatically
 detect an appropriate Python installation.}
 }
 \value{

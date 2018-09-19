@@ -7,8 +7,8 @@
 find_ArcGIS(pro = FALSE)
 }
 \arguments{
-\item{pro}{If \code{TRUE}, Search for ArcGIS Pro 
-Python distribution. Otherwise, search for ArcGIS 
+\item{pro}{If \code{TRUE}, Search for ArcGIS Pro
+Python distribution. Otherwise, search for ArcGIS
 Desktop Python distribution.}
 }
 \value{

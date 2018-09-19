@@ -9,15 +9,15 @@ da_update(table.path, d)
 \arguments{
 \item{table.path}{The file path to the table.}
 
-\item{d}{The data to write to \code{table.path}, with the same number 
-of rows as the table. Column names must match field names 
+\item{d}{The data to write to \code{table.path}, with the same number
+of rows as the table. Column names must match field names
 of the table.}
 }
 \value{
 (Invisible) The path to the table, i.e. \code{table.path}.
 }
 \description{
-Update a table (e.g. attribute table of a layer) with the 
+Update a table (e.g. attribute table of a layer) with the
 arcpy.da module.
 }
 \examples{

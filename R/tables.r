@@ -52,7 +52,7 @@ fields_exist = function(table.path, fields) {
   res = fields %in% c(actual, tokens)
   if (!all(res))
     stop("Specified fields do not exist in table: ", 
-      paste(fields[!res], sep = ", "), call. = FALSE)
+      paste(fields[!res], collapse = ", "), call. = FALSE)
   invisible(NULL)
 }
 

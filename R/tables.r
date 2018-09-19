@@ -152,13 +152,13 @@ da_update = function(table.path, d) {
   fields_exist(table.path, fields)
 
   with(arcpy$da$UpdateCursor(table.path, fields) %as% cursor, {
-    i = 0
+    i = 0L
     while (TRUE) {
     item = iter_next(cursor)
     if (is.null(item))
       break
-      i = i + 1
-		cursor$updateRow(lapply(1:ncol(d), function(j) d[[j]][[i]]))
+      i = i + 1L
+		cursor$updateRow(lapply(1L:ncol(d), function(j) d[[j]][[i]]))
     }
   })
   invisible(table.path)
@@ -194,8 +194,45 @@ da_insert = function(table.path, d) {
   fields = names(d)
   fields_exist(table.path, fields)
   with(arcpy$da$InsertCursor(table.path, fields) %as% cursor, {
-    for (i in 1:nrow(d))
-			cursor$insertRow(lapply(1:ncol(d), function(j) d[[j]][[i]]))
+    for (i in 1L:nrow(d))
+			cursor$insertRow(lapply(1L:ncol(d), function(j) d[[j]][[i]]))
+  })
+  invisible(table.path)
+}
+
+#' Table Row Removal with arcpy.da
+#'
+#' Drop records from a table (e.g. attribute table of a layer) 
+#' with the arcpy.da module.
+#'
+#' @param table.path The file path to the table.
+#' @param rows The row indexes to drop.
+#' @return (Invisible) The path to the table, i.e. \code{table.path}.
+#'
+#' @examples
+#' \dontrun{
+#' layer = "path/to/table"
+#' fields = c("VALUE", "NOTE")
+#' d = da_read(layer, fields)
+#' drop.rows = which(d$VALUE == 5)
+#' da_drop(layer, drop.rows)
+#' }
+#'
+#' @importFrom reticulate %as%
+#' @export
+da_drop = function(table.path, rows) {
+  rows = as.integer(rows)
+  fields = da_fields(table.path)
+  with(arcpy$da$UpdateCursor(table.path, fields) %as% cursor, {
+    i = 0L
+    while (TRUE) {
+      item = iter_next(cursor)
+      if (is.null(item))
+        break
+      i = i + 1L
+      if(i %in% rows)
+        cursor$deleteRow()
+    }
   })
   invisible(table.path)
 }

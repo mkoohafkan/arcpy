@@ -2,7 +2,77 @@
 % Please edit documentation in R/arcpy-methods.r
 \name{RasterAlgebra}
 \alias{RasterAlgebra}
+\alias{+.python.builtin.Raster}
+\alias{-.python.builtin.Raster}
+\alias{*.python.builtin.Raster}
+\alias{/.python.builtin.Raster}
+\alias{^.python.builtin.Raster}
+\alias{\%/\%.python.builtin.Raster}
+\alias{\%\%.python.builtin.Raster}
+\alias{<.python.builtin.Raster}
+\alias{>.python.builtin.Raster}
+\alias{<=.python.builtin.Raster}
+\alias{>=.python.builtin.Raster}
+\alias{!=.python.builtin.Raster}
+\alias{==.python.builtin.Raster}
+\alias{!.python.builtin.Raster}
+\alias{&.python.builtin.Raster}
+\alias{|.python.builtin.Raster}
+\alias{xor.python.builtin.Raster}
+\alias{bitwNot.python.builtin.Raster}
+\alias{bitwAnd.python.builtin.Raster}
+\alias{bitwOr.python.builtin.Raster}
+\alias{bitwXor.python.builtin.Raster}
+\alias{bitwShiftL.python.builtin.Raster}
+\alias{bitwShiftR.python.builtin.Raster}
 \title{Arcpy Raster Algebra}
+\usage{
+\method{+}{python.builtin.Raster}(a, b)
+
+\method{-}{python.builtin.Raster}(a, b)
+
+\method{*}{python.builtin.Raster}(a, b)
+
+\method{/}{python.builtin.Raster}(a, b)
+
+\method{^}{python.builtin.Raster}(a, b)
+
+\method{\%/\%}{python.builtin.Raster}(a, b)
+
+\method{\%\%}{python.builtin.Raster}(a, b)
+
+\method{<}{python.builtin.Raster}(a, b)
+
+\method{>}{python.builtin.Raster}(a, b)
+
+\method{<=}{python.builtin.Raster}(a, b)
+
+\method{>=}{python.builtin.Raster}(a, b)
+
+\method{!=}{python.builtin.Raster}(a, b)
+
+\method{==}{python.builtin.Raster}(a, b)
+
+\method{!}{python.builtin.Raster}(a)
+
+\method{&}{python.builtin.Raster}(a, b)
+
+\method{|}{python.builtin.Raster}(a, b)
+
+\method{xor}{python.builtin.Raster}(a, b)
+
+\method{bitwNot}{python.builtin.Raster}(a)
+
+\method{bitwAnd}{python.builtin.Raster}(a, b)
+
+\method{bitwOr}{python.builtin.Raster}(a, b)
+
+\method{bitwXor}{python.builtin.Raster}(a, b)
+
+\method{bitwShiftL}{python.builtin.Raster}(a, n)
+
+\method{bitwShiftR}{python.builtin.Raster}(a, n)
+}
 \arguments{
 \item{a, b}{arcpy raster objects.}
 
@@ -17,7 +87,7 @@ The following operators are supported:
 Arithmetic Operators:
 \itemize{
 \item \code{+}, \code{-}, and\code{/}
-\item \code{**} and \code{^}
+\item \verb{**} and \code{^}
 \item \code{\%\%} and \code{\%/\%}
 }
 

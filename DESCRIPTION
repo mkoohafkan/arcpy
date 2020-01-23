@@ -1,13 +1,21 @@
 Package: arcpy
 Title: Arcpy interface for R
-Version: 0.0.0.9000
+Version: 0.1-0
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: An R interface to the ArcGIS "arcpy" module using reticulate.
-Depends: R (>= 3.5.0)
-Imports: reticulate (>= 1.7), stats
-Suggests: tibble  (>= 1.4.2)
+Depends: R (>= 3.6)
+Imports: 
+    reticulate (>= 1.7), 
+    withr (>= 2.1), 
+    stats
+Suggests: 
+    tibble (>= 1.4.2),
+    knitr (>= 1.21),
+    rmarkdown (>= 1.11)
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+

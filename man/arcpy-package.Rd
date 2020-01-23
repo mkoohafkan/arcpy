@@ -3,7 +3,6 @@
 \docType{package}
 \name{arcpy-package}
 \alias{arcpy-package}
-\alias{arcpy}
 \title{R Interface to ArcPy}
 \description{
 An R interface for the ArcGIS Python module \code{arcpy} via the

@@ -4,7 +4,7 @@
 \alias{find_ArcGIS}
 \title{Find ArcGIS Installation}
 \usage{
-find_ArcGIS(pro = FALSE)
+find_ArcGIS(pro = TRUE)
 }
 \arguments{
 \item{pro}{If \code{TRUE}, Search for ArcGIS Pro

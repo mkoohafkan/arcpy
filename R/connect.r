@@ -2,39 +2,52 @@
 #'
 #' Attempt to automatically locate an ArcGIS installation.
 #'
-#' @param pro If \code{TRUE}, Search for ArcGIS Pro 
-#'   Python distribution. Otherwise, search for ArcGIS 
-#'   Desktop Python distribution. 
+#' @param pro If \code{TRUE}, Search for ArcGIS Pro
+#'   Python distribution. Otherwise, search for ArcGIS
+#'   Desktop Python distribution.
 #' @return Path(s) to ArcGIS Python distributions.
 #'
 #' @export
-find_ArcGIS = function(pro = FALSE) {
-  if (pro)
-    find_pro()
-  else
-    find_desktop()
+find_ArcGIS = function(pro = TRUE) {
+  if (pro) {
+    installpath = find_install("warn")
+    list(
+      installpath = installpath,
+      env = find_env(installpath, "warn")
+    )
+  } else {
+    list(python = find_python("warn"))
+  }
 }
 
-find_conda = function() {
-  conda_exe = "C:/Program Files/ArcGIS/Pro/bin/Python/Scripts/conda.exe"
-  if (!file.exists(conda_exe))
-    stop("Could not find ArcGIS Pro Conda executable.")
-  conda_exe
+on_fail = function(on.fail) {
+  on.fail = match.arg(on.fail, c("stop", "warn"))
+  if (on.fail == "stop") {
+    function(..., call. = FALSE) stop(..., call. = call.)
+  } else {
+    function(..., call. = FALSE) warning(..., call. = call.)
+  }
 }
 
-find_pro = function() {
-  env_dir = "C:/Program Files/ArcGIS/Pro/bin/Python/envs"
-  if (!file.exists(env_dir))
-    stop("Could not find ArcGIS Pro Conda Environments directory")
-  conda_envs = dir(env_dir)
-  if (length(conda_envs) > 1)
-    warning("Multiple ArcGIS Pro Conda environments found.")
-  if (length(conda_envs) < 1)
-    stop("Could not find ArcGIS Pro Conda environment.")
-  conda_envs
+#' Find ArcGIS Pro Install Directory
+#'
+#' @keywords internal
+find_install = function(on.fail = c("stop", "warn")) {
+  fail_fun = on_fail(on.fail)
+  path = normalizePath("C:/Program Files/ArcGIS/Pro", mustWork = FALSE)
+  if (!dir.exists(path)) {
+    fail_fun("Could not find ArcGIS Pro installation.")
+    ""
+  } else {
+    path
+  }
 }
 
-find_desktop = function() {
+#' Find ArcGIS Desktop Python Distribution
+#'
+#' @keywords internal
+find_python = function(on.fail = c("stop", "warn")) {
+  fail_fun = on_fail(on.fail)
   if (.Platform$r_arch == "x64") {
     python_folder = file.path("C:/Python27",
         dir("C:/Python27")[grepl("ArcGIS.*x64", dir("C:/Python27"))])
@@ -43,34 +56,72 @@ find_desktop = function() {
         dir("C:/Python27")[grepl("ArcGIS.*", dir("C:/Python27")) &
           !(grepl("ArcGIS.*x64", dir("C:/Python27")))])
   }
-  if (length(python_folder) > 1)
+  if (length(python_folder) > 1) {
     warning("Multiple ArcGIS Desktop Python binaries found.")
-  if (length(python_folder) < 1)
-    stop("Could not find ArcGIS Desktop Python binary.")
-  python_folder
+  } else if (length(python_folder) < 1) {
+    fail_fun("Could not find ArcGIS Desktop Python ",
+      .Platform$r_arch, " binary.")
+    ""
+  } else {
+    python_folder
+  }
 }
+
+#' Find ArcGIS Pro Conda Environment
+#'
+#' @keywords internal
+find_env = function(installpath, on.fail = c("stop", "warn")) {
+  fail_fun = on_fail(on.fail)
+  env_dir = normalizePath(file.path(installpath, "bin/Python/envs"),
+    mustWork = FALSE)
+  if (!dir.exists(env_dir)) {
+    fail_fun("Could not find ArcGIS Pro Conda Environments directory")
+    return("")
+  }
+  conda_envs = normalizePath(dir(env_dir, full.names = TRUE),
+    mustWork = FALSE)
+  if (length(conda_envs) > 1) {
+    warning("Multiple ArcGIS Pro Conda environments found.")
+  } else if (length(conda_envs) < 1) {
+    fail_fun("Could not find an ArcGIS Pro Conda environment.")
+    ""
+  } else {
+    conda_envs
+  }
+}
+
+#' Find ArcGIS Pro Conda Executable
+#'
+#' DEPRECATED?
+#'
+#' @keywords internal
+find_conda = function(installpath, on.fail = c("stop", "warn")) {
+  fail_fun = on_fail(on.fail)
+  conda_exe = normalizePath(file.path(installpath,
+    "bin/Python/Scripts/conda.exe"), mustWork = FALSE)
+  if (!file.exists(conda_exe)) {
+    fail_fun("Could not find ArcGIS Pro Conda executable.")
+  }
+  conda_exe
+}
+
 
 #' Connect to ArcGIS Python
 #'
-#' Connect to the ArcGIS Python environment. 
+#' Connect to the ArcGIS Python environment.
 #'
-#' @param pro If \code{TRUE}, attempt to connect to an ArcGIS Pro 
-#'   Python distribution. Otherwise, attempt to connect to an ArcGIS 
+#' @param pro If \code{TRUE}, attempt to connect to an ArcGIS Pro
+#'   Python distribution. Otherwise, attempt to connect to an ArcGIS
 #'   Desktop Python distribution. Ignored if \code{python} is provided.
-#' @param python Path to ArcGIS Python binary.
-#'   If missing, the function will attempt to automatically 
-#'   detect an appropriate Python installation.
-#' @param python Path to ArcGIS Python binary.
-#'   If missing, the function will attempt to automatically 
-#'   detect an appropriate Python installation.
-#' @param conda_exe For use with ArcGIS Pro only. The
-#'   path to the ArcGIS Pro Conda executable.
-#'   If missing, the function will attempt to automatically 
-#'   detect the ArcGIS Pro Conda executable.
-#' @param conda_env For use with ArcGIS Pro only. The
-#'   the ArcGIS Pro Conda environment to use.
-#'   If missing, the function will attempt to automatically 
-#'   detect an appropriate Conda environment.
+#' @param condaenv (ArcGIS Pro only). The ArcGIS Pro Conda environment
+#'   to use. If missing, the function will attempt to automatically
+#'   detect the default Conda environment.
+#' @param installpath (ArcGIS Pro only). The ArcGIS Pro installation
+#'   directory. If missing, the function will attempt to
+#'   automatically detect the installation directory.
+#' @param python (ArcGIS Desktop only) Path to the ArcGIS Desktop
+#'   Python binary. If missing, the function will attempt to
+#'   automatically detect an appropriate Python installation.
 #' @return No return value.
 #'
 #' @examples
@@ -84,16 +135,32 @@ find_desktop = function() {
 #' }
 #'
 #' @importFrom reticulate use_python use_condaenv
+#' @importFrom withr with_path
 #' @export
-use_ArcGIS = function(pro = FALSE, python, conda_exe, conda_env) {
+use_ArcGIS = function(pro = TRUE, condaenv, installpath, python) {
   if (!pro) {
-    if (missing(python))
-      python = find_ArcGIS(pro)
+    if (missing(python)) {
+      python = find_python()
+    }
     use_python(python[[1]], required = TRUE)
+    installinfo = arcpy$GetInstallInfo()
   } else {
-    conda_exe = find_conda()
-    conda_env = find_pro()
-    use_condaenv(conda_env[[1]], conda_exe, required = TRUE)
+    if (missing(installpath)) {
+      installpath = find_install()
+    }
+    # update PATH
+    pro.bin = normalizePath(file.path(installpath, "bin"))
+    if (missing(condaenv)) {
+      condaenv = find_env(installpath)[[1]]
+    }
+    with_path(pro.bin, {
+      use_condaenv(condaenv = condaenv[[1]], required = TRUE)
+      # need to access arcpy while path is modified to load correctly
+      installinfo = arcpy$GetInstallInfo()
+    })
   }
+  with(installinfo,
+    message("Connected to ", ProductName,
+    " version ", Version, " (build ", BuildNumber, ")."))
   invisible(NULL)
 }

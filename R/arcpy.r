@@ -5,7 +5,7 @@
 #' started.
 #'
 #' @name arcpy-package
-#' @aliases arcpy
+#' @aliases arcpy-package
 #' @docType package
 #' @md
 #' @seealso \code{\link{use_ArcGIS}}

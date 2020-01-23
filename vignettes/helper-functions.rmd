@@ -1,7 +1,12 @@
 ---
 title: "Using the helper functions"
-output: html_document
-author: Michael Koohafkan
+author: "Michael Koohafkan"
+date: "2020-01-23"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Helper Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 The `arcpy` package provides a small number of helper functions to make
@@ -14,7 +19,18 @@ To demonstrate the helper functions, we'll set up a workspace with a copy
 of the California County Boundaries shapefile (available on https://data.ca.gov).
 A copy of this file is included with the `arcpy` package.
 
-```{r}
+
+
+```r
+library(arcpy)
+use_ArcGIS(pro = TRUE)
+```
+
+```
+## Connected to ArcGISPro version 2.4 (build 19948).
+```
+
+```r
 # set workspace
 arcpy$env$workspace = tempdir()
 arcpy$env$scratchWorkspace = tempdir()
@@ -27,29 +43,76 @@ fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
 
 Reading attribute tables is accomplished using the function `da_read`.
 
-```{r}
-da_read(fc, fields = c("FID", "NAME"))
+
+```r
+head(da_read(fc, fields = c("FID", "NAME")))
+```
+
+```
+##   FID          NAME
+## 1   0        Sierra
+## 2   1    Sacramento
+## 3   2 Santa Barbara
+## 4   3     Calaveras
+## 5   4       Ventura
+## 6   5   Los Angeles
 ```
 
 Tokens are also supported by `arcpy`. If you have the `tibble` package installed, 
 you can read geometry tokens as list columns.
 
-```{r}
+
+```r
 da_read(fc, fields = c("OID@", "NAME", "SHAPE@TRUECENTROID"))
+```
+
+```
+## Loading required namespace: tibble
+```
+
+```
+## # A tibble: 58 x 3
+##    `OID@` NAME          `SHAPE@TRUECENTROID`
+##     <int> <chr>         <list>              
+##  1      0 Sierra        <list [2]>          
+##  2      1 Sacramento    <list [2]>          
+##  3      2 Santa Barbara <list [2]>          
+##  4      3 Calaveras     <list [2]>          
+##  5      4 Ventura       <list [2]>          
+##  6      5 Los Angeles   <list [2]>          
+##  7      6 Sonoma        <list [2]>          
+##  8      7 Kings         <list [2]>          
+##  9      8 San Diego     <list [2]>          
+## 10      9 Placer        <list [2]>          
+## # ... with 48 more rows
 ```
 
 You can use `da_update` to modify attributes.
 
-```{r}
+
+```r
 d = da_read(fc, fields = "NAME")
-d['NAME'] = paste(d$NAME, "County, CA")
+d["NAME"] = paste(d$NAME, "County, CA")
 da_update(fc, d)
+
+head(da_read(fc, fields = "NAME"))
+```
+
+```
+##                       NAME
+## 1        Sierra County, CA
+## 2    Sacramento County, CA
+## 3 Santa Barbara County, CA
+## 4     Calaveras County, CA
+## 5       Ventura County, CA
+## 6   Los Angeles County, CA
 ```
 
 You can also use `da_update` to add additional fields to a table, provided 
 you create the field first.
 
-```{r}
+
+```r
 d = da_read(fc, c("ALAND", "AWATER"))
 d["FRACLAND"] = d$ALAND / (d$ALAND + d$AWATER)
 
@@ -59,7 +122,8 @@ da_update(fc, d["FRACLAND"])
 
 You can use `da_drop` and `da_insert` to remove and add rows, respectively.
 
-```{r}
+
+```r
 d = da_read(fc)
 # extract second row
 new.d = d[2,]
@@ -67,5 +131,23 @@ new.d = d[2,]
 da_drop(fc, 2)
 # add the row back
 da_insert(fc, new.d)
+
+head(da_read(fc))
 ```
+
+```
+## # A tibble: 6 x 20
+##     FID Shape STATEFP COUNTYFP COUNTYNS GEOID NAME  NAMELSAD LSAD  CLASSFP MTFCC
+##   <int> <lis> <chr>   <chr>    <chr>    <chr> <chr> <chr>    <chr> <chr>   <chr>
+## 1     0 <lis~ 06      091      00277310 06091 Sier~ Sierra ~ 06    H1      G4020
+## 2     1 <lis~ 06      083      00277306 06083 Sant~ Santa B~ 06    H1      G4020
+## 3     2 <lis~ 06      009      01675885 06009 Cala~ Calaver~ 06    H1      G4020
+## 4     3 <lis~ 06      111      00277320 06111 Vent~ Ventura~ 06    H1      G4020
+## 5     4 <lis~ 06      037      00277283 06037 Los ~ Los Ang~ 06    H1      G4020
+## 6     5 <lis~ 06      097      01657246 06097 Sono~ Sonoma ~ 06    H1      G4020
+## # ... with 9 more variables: CSAFP <chr>, CBSAFP <chr>, METDIVFP <chr>,
+## #   FUNCSTAT <chr>, ALAND <dbl>, AWATER <dbl>, INTPTLAT <chr>, INTPTLON <chr>,
+## #   FRACLAND <dbl>
+```
+
 

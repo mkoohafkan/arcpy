@@ -1,0 +1,148 @@
+---
+title: "Manipulating arcobjects"
+author: "Michael Koohafkan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Manipulating ArcObjects}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+The arcpy module provides classes and methods a variety of tasks,
+including manipulating geometries. These classes and methods can
+be accessed in R as well using functionality provided by the 
+[reticulate](https://cran.r-project.org/package=reticulate) 
+package.
+
+This document demonstrates an example task where the geometry of 
+polygons in a shapefile is shifted 5000 linear units in the y-direction
+and 2500 linear units in the x-direction. This contrived task 
+demonstrates an approach to manipulating the `arcobjects` class 
+instances.
+
+```{r, eval = FALSE}
+library(arcpy)
+use_ArcGIS(pro = TRUE)
+library(reticulate)
+```
+
+```{r, echo = FALSE}
+devtools::load_all()
+use_ArcGIS(pro = TRUE)
+library(reticulate)
+```
+
+```{r}
+# set workspace
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+
+# copy feature for example
+fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+  "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+
+# get the width and height of the layer
+arcpy$Describe(fc)$extent$XMin
+arcpy$Describe(fc)$extent$YMin
+```
+
+The reticulate package provides functions for manipulating python 
+objects. These tools include iterators and the `%as%` operator
+for aliasing. The code below uses `%as%` to create an instance
+of the `fc` layer, which we can use to iterate over the polygons.
+
+```{r, results = "hold"}
+# create iterable instance of the SHAPE@ objects in the layer
+with(arcpy$da$UpdateCursor(fc, "SHAPE@") %as% rows, {
+  # move to first row
+  row = iter_next(rows)
+  # iterate over the features
+  while (!is.null(row)) {
+    # create an arcpy array for storing features
+    arr_feat = arcpy$Array()
+    # get the parts of the current feature
+    feat = row[[1]]$getPart()
+    # get the first part of the current feature
+    part = iter_next(feat)
+    # iterate over the parts of this feature
+    while (!is.null(part)) {
+      # create another arcpy array to store feature parts
+      arr_part = arcpy$Array()
+      # get the first point of this part
+      pnt = iter_next(part)
+      # iterate over the points in this part
+      while (!is.null(pnt)) {
+        # get the point X coordinate and subtract 5000
+        x = pnt$X + 2500
+        # get the point Y coordinate and add 5000
+        y = pnt$Y + 5000
+        # create a new point
+        arr_part$add(arcpy$Point(x, y))
+        # iterate to next point
+        pnt = iter_next(part)
+      }
+      # add the modified part to the feature array
+      arr_feat$add(arr_part)
+      # iterate to next part
+      part = iter_next(feat)
+    }
+    # create a new polygon from the feature array
+    polygon = arcpy$Polygon(arr_feat)
+    # overwrite the original polygon with the new polygon
+    row[[1]] = polygon
+    # update the cursor
+    rows$updateRow(row)
+    # iterate to next feature
+    row = iter_next(rows)
+  }
+})
+
+# recalculate the width and height of the layer
+arcpy$management$RecalculateFeatureClassExtent(paste(fc))
+arcpy$Describe(fc)$extent$XMin
+arcpy$Describe(fc)$extent$YMin
+```
+
+It's also possible to mix and match iterators and R functions, often
+with significantly faster results. Here's
+an alternative approach that judicious use of reticulate's `iterate()`
+function in combination with `lapply()` and the `da_read()` and
+`da_update()` functions:
+
+```{r,results = "hold"}
+translate_geom = function(g, dx, dy) {
+  arr_feat = arcpy$Array()
+  feat = g$getPart()
+  parts = iterate(feat, function(part) {
+    arr_part = arcpy$Array()
+    pnts = iterate(part, function(pnt) {
+      x = pnt$X + dx
+      y = pnt$Y + dy
+      arcpy$Point(x, y)
+    })
+    lapply(pnts, function(part) arr_part$add(part))
+    arr_part
+  })
+  lapply(parts, function(feat) arr_feat$add(feat))
+  arcpy$Polygon(arr_feat)
+}
+
+fc.d = da_read(fc, "SHAPE@")
+fc.d[["SHAPE@"]] = lapply(fc.d[["SHAPE@"]][1], translate_geom,
+  dx = 2500, dy = 5000)
+
+da_update(fc, fc.d)
+
+arcpy$management$RecalculateFeatureClassExtent(fc)
+arcpy$Describe(fc)$extent$XMin
+arcpy$Describe(fc)$extent$YMin
+```
+
+Handling python objects can be challenging in some cases, but
+`reticulate` provides virtually all the tools needed to manipulate
+arcpy classes.
+
+```{r, include = FALSE}
+arcpy$management$Delete(fc)
+```

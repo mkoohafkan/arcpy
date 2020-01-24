@@ -125,10 +125,10 @@ raster1 ^ raster2
 raster1 \%\% raster2
 
 raster1 > raster2
-(raster > raster2) & (raster2 > 7)
-(raster > raster2) | (raster2 > 7)
+(raster1 > raster2) & (raster2 > 7)
+(raster1 > raster2) | (raster2 > 7)
 
-arcpy$CheckOutExtension("Spatial")
+arcpy$CheckInExtension("Spatial")
 }
 
 }

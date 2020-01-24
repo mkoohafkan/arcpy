@@ -1,5 +1,3 @@
-cursor = NULL
-
 #' List Attribute Table Fields
 #'
 #' Read attribute table field names with arcpy.da module.
@@ -103,6 +101,8 @@ fields_exist = function(table.path, fields) {
 #' @importFrom reticulate %as% iterate
 #' @export
 da_read = function(table.path, fields, simplify = TRUE) {
+  cursor = NULL
+
   if (missing(fields)) {
     fields = da_fields(table.path)
   }
@@ -170,6 +170,8 @@ da_read = function(table.path, fields, simplify = TRUE) {
 #' @importFrom reticulate %as% iter_next
 #' @export
 da_update = function(table.path, d) {
+  cursor = NULL
+
   fields = names(d)
   fields_exist(table.path, fields)
   with(arcpy$da$UpdateCursor(table.path, fields) %as% cursor, {
@@ -214,6 +216,8 @@ da_update = function(table.path, d) {
 #' @importFrom reticulate %as%
 #' @export
 da_insert = function(table.path, d) {
+  cursor = NULL
+
   fields = names(d)
   fields_exist(table.path, fields)
   with(arcpy$da$InsertCursor(table.path, fields) %as% cursor, {
@@ -248,6 +252,8 @@ da_insert = function(table.path, d) {
 #' @importFrom reticulate %as%
 #' @export
 da_drop = function(table.path, rows) {
+  cursor = NULL
+
   rows = as.integer(rows)
   fields = da_fields(table.path)
   with(arcpy$da$UpdateCursor(table.path, fields) %as% cursor, {

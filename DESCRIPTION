@@ -12,7 +12,7 @@ Description: An interface to the ArcGIS "arcpy" module using reticulate.
 URL: https://github.com/mkoohafkan/arcpy
 BugReports: https://github.com/mkoohafkan/arcpy/issues
 SystemRequirements: ArcGIS Pro or ArcGIS Desktop with Background Geoprocessing (64-bit).
-Depends: R (>= 3.6)
+Depends: R (>= 3.5)
 Imports: 
     reticulate (>= 1.7), 
     withr (>= 2.1), 

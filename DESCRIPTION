@@ -1,8 +1,16 @@
 Package: arcpy
-Title: Arcpy interface for R
+Title: Interface to the ArcGIS "arcpy" python module
 Version: 0.1-0
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: An R interface to the ArcGIS "arcpy" module using reticulate.
+Authors@R:
+    person(given = "Michael",
+           family = "Koohafkan",
+           role = c("aut", "cre"),
+           email = "michael.koohafkan@gmail.com")
+Description: An interface to the ArcGIS "arcpy" module using reticulate.
+    This package is in early development and needs more testing! Report
+    bugs to theGitHub Issue Tracker.
+URL: https://github.com/mkoohafkan/arcpy
+BugReports: https://github.com/mkoohafkan/arcpy/issues
 Depends: R (>= 3.6)
 Imports: 
     reticulate (>= 1.7), 
@@ -18,4 +26,3 @@ LazyData: true
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-

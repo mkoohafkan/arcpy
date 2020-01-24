@@ -7,6 +7,8 @@
 #'   Desktop Python distribution.
 #' @return Path(s) to ArcGIS Python distributions.
 #'
+#' @seealso \code{\link{use_ArcGIS}}
+#'
 #' @export
 find_ArcGIS = function(pro = TRUE) {
   if (pro) {
@@ -123,6 +125,8 @@ find_conda = function(installpath, on.fail = c("stop", "warn")) {
 #'   Python binary. If missing, the function will attempt to
 #'   automatically detect an appropriate Python installation.
 #' @return No return value.
+#'
+#' @seealso \code{\link{find_ArcGIS}}
 #'
 #' @examples
 #' \dontrun{

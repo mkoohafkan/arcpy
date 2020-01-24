@@ -24,8 +24,8 @@ ops = reticulate::import("operator", delay_load = TRUE)
 #' * `bitwShiftL` and `bitwShiftR`
 #'
 #' @name RasterAlgebra
-#' @seealso \code{\link[base]{Arithmetic}}, \code{\link[base]{Comparison}}, 
-#'  \code{\link[base]{bitwNot}}.
+#' @seealso \code{\link[base]{Arithmetic}},
+#'   \code{\link[base]{Comparison}}, \code{\link[base]{bitwNot}}.
 NULL
 
 

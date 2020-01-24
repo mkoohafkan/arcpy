@@ -50,6 +50,7 @@ tokens = c("OID@", "SHAPE@", "SHAPE@XY", "SHAPE@TRUECENTROID",
 #' @param fields The field names.
 #' @return No return value; will produce an error if any of the
 #'   specified fields are not present in the table.
+#'
 #' @keywords internal
 fields_exist = function(table.path, fields) {
   actual = da_fields(table.path)

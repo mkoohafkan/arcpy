@@ -40,3 +40,6 @@ use_ArcGIS("C:/Python27/ArcGIS10.2")
 }
 
 }
+\seealso{
+\code{\link{find_ArcGIS}}
+}

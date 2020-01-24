@@ -105,6 +105,6 @@ Bitwise Operators
 }
 }
 \seealso{
-\code{\link[base]{Arithmetic}}, \code{\link[base]{Comparison}},
-\code{\link[base]{bitwNot}}.
+\code{\link[base]{Arithmetic}},
+\code{\link[base]{Comparison}}, \code{\link[base]{bitwNot}}.
 }

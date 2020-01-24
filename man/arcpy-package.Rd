@@ -3,12 +3,22 @@
 \docType{package}
 \name{arcpy-package}
 \alias{arcpy-package}
-\title{R Interface to ArcPy}
+\alias{arcpy}
+\title{Interface to ArcPy}
+\format{An object of class \code{python.builtin.module}.}
+\usage{
+arcpy
+}
 \description{
-An R interface for the ArcGIS Python module \code{arcpy} via the
-R-Python interface provided by reticulate. See the vignettes to get
-started.
+An interface to the ArcGIS \code{arcpy} Python module via the
+R-Python interface provided by \code{reticulate}. Loading the
+packages exposes the \code{arcpy} python module for accessing the
+ArcGIS geoprocessor. See the vignettes to get started.
+}
+\examples{
+arcpy$GetInstallInfo()
 }
 \seealso{
-\code{\link{use_ArcGIS}}
+\code{\link{use_ArcGIS}}, \code{\link{RasterAlgebra}}
 }
+\keyword{datasets}

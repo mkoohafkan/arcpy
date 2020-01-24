@@ -17,3 +17,6 @@ Path(s) to ArcGIS Python distributions.
 \description{
 Attempt to automatically locate an ArcGIS installation.
 }
+\seealso{
+\code{\link{use_ArcGIS}}
+}

@@ -1,5 +1,6 @@
-# arcpy
-ArcPy: R interface to ArcPy
+# arcpy: R interface to ArcPy
+
+![CRAN Release](https://www.r-pkg.org/badges/version-last-release/arcpy)
 
 An R interface for the ArcGIS Python module arcpy using
 the R-Python bridge provided by 

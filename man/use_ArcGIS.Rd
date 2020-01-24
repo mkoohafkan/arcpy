@@ -29,6 +29,15 @@ No return value.
 \description{
 Connect to the ArcGIS Python environment.
 }
+\note{
+(For ArcGIS Pro) The ArcGIS Pro bin folder (typically
+\verb{C:\\Program Files\\ArcGIS\\Pro\\bin}) must be added to the PATH
+variable before the Conda Environment is loaded. For users with
+adminstrator privileges, \code{withr::with_path()} is used to temporarily
+add the ArcGIS Pro bin folder to the path. Users without
+adminstrator may need to manually add the bin folder to their user
+PATH variable before starting an R session.
+}
 \examples{
 \dontrun{
 # Try to autodetect ArcGIS Pro installation

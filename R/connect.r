@@ -126,6 +126,14 @@ find_conda = function(installpath, on.fail = c("stop", "warn")) {
 #'   automatically detect an appropriate Python installation.
 #' @return No return value.
 #'
+#' @note (For ArcGIS Pro) The ArcGIS Pro bin folder (typically
+#'   `C:\Program Files\ArcGIS\Pro\bin`) must be added to the PATH
+#'   variable before the Conda Environment is loaded. For users with
+#'  adminstrator privileges, `withr::with_path()` is used to temporarily
+#'  add the ArcGIS Pro bin folder to the path. Users without
+#'  adminstrator may need to manually add the bin folder to their user 
+#'  PATH variable before starting an R session.
+#'
 #' @seealso \code{\link{find_ArcGIS}}
 #'
 #' @examples
@@ -157,11 +165,17 @@ use_ArcGIS = function(pro = TRUE, condaenv, installpath, python) {
     if (missing(condaenv)) {
       condaenv = find_env(installpath)[[1]]
     }
-    with_path(pro.bin, {
+    installinfo = with_path(pro.bin, {
       use_condaenv(condaenv = condaenv[[1]], required = TRUE)
       # need to access arcpy while path is modified to load correctly
-      installinfo = arcpy$GetInstallInfo()
+      installinfo = try(arcpy$GetInstallInfo())
     })
+  }
+  if (class(installinfo) == "try-error") {
+    stop("The arcpy module could not be loaded.\n",
+      "If your user account does not have adminstrator privileges, ",
+      "try adding ", shQuote(pro.bin), " to your user PATH variable ",
+      "and retry.\nYou may also need to restart your R session.")
   }
   with(installinfo,
     message("Connected to ", ProductName,

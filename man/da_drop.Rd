@@ -20,11 +20,13 @@ with the arcpy.da module.
 }
 \examples{
 \dontrun{
-layer = "path/to/table"
-fields = c("VALUE", "NOTE")
-d = da_read(layer, fields)
-drop.rows = which(d$VALUE == 5)
-da_drop(layer, drop.rows)
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+  "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+d = da_read(fc, c("STATEFP", "COUNTYFP"))
+drop.rows = which(d$STATEFP == "06" & d$COUNTYFP == "067")
+da_drop(fc, drop.rows)
 }
 
 }

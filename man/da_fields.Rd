@@ -15,3 +15,13 @@ A vector of field names.
 \description{
 Read attribute table field names with arcpy.da module.
 }
+\examples{
+\dontrun{
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+  "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+da_fields(fc)
+}
+
+}

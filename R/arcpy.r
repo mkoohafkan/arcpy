@@ -16,7 +16,7 @@ NULL
 #' @format An object of class \code{python.builtin.module}.
 #'
 #' @examples
-#' \dontrun {
+#' \dontrun{
 #' use_ArcGIS()
 #' arcpy$GetInstallInfo()
 #' }

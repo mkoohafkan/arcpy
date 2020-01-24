@@ -7,6 +7,15 @@ cursor = NULL
 #' @param table.path The file path to the table.
 #' @return A vector of field names.
 #'
+#' @examples
+#' \dontrun{
+#' arcpy$env$workspace = tempdir()
+#' arcpy$env$scratchWorkspace = tempdir()
+#' fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+#'   "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+#' da_fields(fc)
+#' }
+#'
 #' @export
 da_fields = function(table.path) {
   field.objects = arcpy$ListFields(table.path)
@@ -83,9 +92,11 @@ fields_exist = function(table.path, fields) {
 #'
 #' @examples
 #' \dontrun{
-#' layer = "path/to/table"
-#' fields = c("VALUE", "NOTE")
-#' da_read(layer, fields)
+#' arcpy$env$workspace = tempdir()
+#' arcpy$env$scratchWorkspace = tempdir()
+#' fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+#'   "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+#' da_read(fc, c("COUNTYFP", "ALAND"))
 #' }
 #'
 #' @importFrom stats setNames
@@ -146,12 +157,13 @@ da_read = function(table.path, fields, simplify = TRUE) {
 #'
 #' @examples
 #' \dontrun{
-#' layer = "path/to/table"
-#' fields = c("VALUE", "NOTE")
-#' d = da_read(layer, fields)
-#' d["VALUE"] = d$VALUE + 5
-#' d["NOTE"] = "modified"
-#' da_update(layer, d)
+#' arcpy$env$workspace = tempdir()
+#' arcpy$env$scratchWorkspace = tempdir()
+#' fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+#'   "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+#' d = da_read(fc, "ALAND")
+#' d["ALAND"] = d$ALAND+ 5000
+#' da_update(fc, d)
 #' }
 #'
 #' @importFrom stats setNames
@@ -188,12 +200,14 @@ da_update = function(table.path, d) {
 #'
 #' @examples
 #' \dontrun{
-#' layer = "path/to/table"
-#' fields = c("VALUE", "NOTE")
-#' d = da_read(layer, fields)
-#' add.d = data.frame(VALUE = 5, NOTE = "NEW",
+#' arcpy$env$workspace = tempdir()
+#' arcpy$env$scratchWorkspace = tempdir()
+#' fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+#'   "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+#' d = da_read(fc, c("ALAND", "CLASSFP"))
+#' add.d = data.frame(ALAND= 1e4, CLASSFP = "H2",
 #'   stringsAsFactors = FALSE)
-#' da_insert(layer, add.d)
+#' da_insert(fc, add.d)
 #' }
 #'
 #' @importFrom stats setNames
@@ -222,11 +236,13 @@ da_insert = function(table.path, d) {
 #'
 #' @examples
 #' \dontrun{
-#' layer = "path/to/table"
-#' fields = c("VALUE", "NOTE")
-#' d = da_read(layer, fields)
-#' drop.rows = which(d$VALUE == 5)
-#' da_drop(layer, drop.rows)
+#' arcpy$env$workspace = tempdir()
+#' arcpy$env$scratchWorkspace = tempdir()
+#' fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+#'   "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+#' d = da_read(fc, c("STATEFP", "COUNTYFP"))
+#' drop.rows = which(d$STATEFP == "06" & d$COUNTYFP == "067")
+#' da_drop(fc, drop.rows)
 #' }
 #'
 #' @importFrom reticulate %as%

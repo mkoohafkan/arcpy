@@ -31,9 +31,11 @@ geodatabases, which is not supported by \code{rgdal::readOGR}.
 }
 \examples{
 \dontrun{
-layer = "path/to/table"
-fields = c("VALUE", "NOTE")
-da_read(layer, fields)
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+  "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+da_read(fc, c("COUNTYFP", "ALAND"))
 }
 
 }

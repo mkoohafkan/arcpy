@@ -22,12 +22,13 @@ arcpy.da module.
 }
 \examples{
 \dontrun{
-layer = "path/to/table"
-fields = c("VALUE", "NOTE")
-d = da_read(layer, fields)
-d["VALUE"] = d$VALUE + 5
-d["NOTE"] = "modified"
-da_update(layer, d)
+arcpy$env$workspace = tempdir()
+arcpy$env$scratchWorkspace = tempdir()
+fc = arcpy$management$CopyFeatures(system.file("CA_Counties",
+  "CA_Counties_TIGER2016.shp", package = "arcpy"), "CA_Counties")
+d = da_read(fc, "ALAND")
+d["ALAND"] = d$ALAND+ 5000
+da_update(fc, d)
 }
 
 }

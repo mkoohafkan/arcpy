@@ -12,8 +12,10 @@ README.md
 ^.*\.Rproj$
 ^\.Rproj\.user$
 
-_build_vignettes.r
+^_build_vignettes.r$
 vignettes/_helper-functions.rmd
 vignettes/_manipulating-arcobjects.rmd
 vignettes/_quickstart.rmd
 vignettes/_raster-math.rmd
+
+^cran-comments.md$

@@ -23,6 +23,34 @@ ops = reticulate::import("operator", delay_load = TRUE)
 #' * `bitwNot`, `bitwAnd`, `bitwOr` and `bitwXor`
 #' * `bitwShiftL` and `bitwShiftR`
 #'
+#' @examples
+#' \dontrun{
+#' use_ArcGIS()
+#' arcpy$env$workspace = tempdir()
+#' arcpy$env$scratchWorkspace = tempdir()
+#' arcpy$CheckOutExtension("Spatial")
+#'
+#' cellSize = 2
+#' outExtent = arcpy$Extent(0, 0, 250, 250)
+
+#' raster1 = arcpy$sa$CreateConstantRaster(12, "FLOAT",
+#'   cellSize, outExtent)
+#'
+#' raster2 = arcpy$sa$CreateConstantRaster(6, "FLOAT",
+#'   cellSize, outExtent)
+#'
+#' raster1 + raster2
+#' raster1 * raster2
+#' raster1 ^ raster2
+#' raster1 %% raster2
+#'
+#' raster1 > raster2
+#' (raster > raster2) & (raster2 > 7)
+#' (raster > raster2) | (raster2 > 7)
+#'
+#' arcpy$CheckOutExtension("Spatial")
+#' }
+#'
 #' @name RasterAlgebra
 #' @seealso \code{\link[base]{Arithmetic}},
 #'   \code{\link[base]{Comparison}}, \code{\link[base]{bitwNot}}.

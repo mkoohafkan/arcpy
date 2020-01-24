@@ -16,7 +16,7 @@ packages exposes the \code{arcpy} python module for accessing the
 ArcGIS geoprocessor. See the vignettes to get started.
 }
 \examples{
-\dontrun {
+\dontrun{
 use_ArcGIS()
 arcpy$GetInstallInfo()
 }

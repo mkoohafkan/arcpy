@@ -1,4 +1,4 @@
-# arcpy: R interface to ArcPy
+# arcpy: R Interface to ArcGIS Geoprocessing Tools
 
 ![CRAN Release](https://www.r-pkg.org/badges/version-last-release/arcpy)
 

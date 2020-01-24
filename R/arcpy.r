@@ -14,8 +14,13 @@ NULL
 
 #' @rdname arcpy-package
 #' @format An object of class \code{python.builtin.module}.
+#'
 #' @examples
+#' \dontrun {
+#' use_ArcGIS()
 #' arcpy$GetInstallInfo()
+#' }
+#'
 #' @export
 arcpy = NULL
 

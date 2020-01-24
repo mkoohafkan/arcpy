@@ -16,7 +16,11 @@ packages exposes the \code{arcpy} python module for accessing the
 ArcGIS geoprocessor. See the vignettes to get started.
 }
 \examples{
+\dontrun {
+use_ArcGIS()
 arcpy$GetInstallInfo()
+}
+
 }
 \seealso{
 \code{\link{use_ArcGIS}}, \code{\link{RasterAlgebra}}

@@ -31,7 +31,7 @@ Connect to the ArcGIS Python environment.
 }
 \examples{
 \dontrun{
-# Try to autodetect
+# Try to autodetect ArcGIS Pro installation
 use_ArcGIS()
 
 # connect to the 32-bit ArcGIS Desktop 10.2 Python environment

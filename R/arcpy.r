@@ -19,6 +19,7 @@ NULL
 #' \dontrun{
 #' use_ArcGIS()
 #' arcpy$GetInstallInfo()
+#' mygis = arcgis$gis$GIS()
 #' }
 #'
 #' @export
@@ -27,6 +28,7 @@ arcpy = NULL
 #' @importFrom reticulate import
 .onLoad <- function(libname, pkgname) {
   arcpy <<- import("arcpy", delay_load = TRUE)
+  arcgis <<- import("arcgis", delay_load = TRUE)
 }
 
 #' @importFrom reticulate py_help

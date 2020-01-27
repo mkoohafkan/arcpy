@@ -19,6 +19,7 @@ ArcGIS geoprocessor. See the vignettes to get started.
 \dontrun{
 use_ArcGIS()
 arcpy$GetInstallInfo()
+mygis = arcgis$gis$GIS()
 }
 
 }

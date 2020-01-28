@@ -5,6 +5,15 @@
 #' packages exposes the `arcpy` python module for accessing the
 #' ArcGIS geoprocessor. See the vignettes to get started.
 #'
+#' \code{arcpy} uses the following [options()] to configure behavior:
+#'
+#' \itemize{
+#'   \item `arcpy.pro`: (Logical) use ArcGIS Pro by default.
+#'   \item `arcpy.installpath`: (Character) The default install path of ArcGIS Pro.
+#'   \item `arcpy.condaenv`: (Character) The default path to the ArcGIS Pro Conda environment.
+#'   \item `arcpy.pythonpath`: (Character) The default path to the ArcGIS Desktop Python installation.
+#' }
+#'
 #' @name arcpy-package
 #' @aliases arcpy
 #' @docType package
@@ -25,11 +34,6 @@ NULL
 #' @export
 arcpy = NULL
 
-#' @importFrom reticulate import
-.onLoad <- function(libname, pkgname) {
-  arcpy <<- import("arcpy", delay_load = TRUE)
-  arcgis <<- import("arcgis", delay_load = TRUE)
-}
 
 #' @importFrom reticulate py_help
 #' @export

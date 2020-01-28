@@ -4,7 +4,7 @@
 \alias{use_ArcGIS}
 \title{Connect to ArcGIS Python}
 \usage{
-use_ArcGIS(pro = TRUE, condaenv, installpath, python)
+use_ArcGIS(pro, condaenv, installpath, pythonpath)
 }
 \arguments{
 \item{pro}{If \code{TRUE}, attempt to connect to an ArcGIS Pro
@@ -19,15 +19,22 @@ detect the default Conda environment.}
 directory. If missing, the function will attempt to
 automatically detect the installation directory.}
 
-\item{python}{(ArcGIS Desktop only) Path to the ArcGIS Desktop
+\item{pythonpath}{(ArcGIS Desktop only) Path to the ArcGIS Desktop
 Python binary. If missing, the function will attempt to
 automatically detect an appropriate Python installation.}
 }
-\value{
-No return value.
-}
 \description{
 Connect to the ArcGIS Python environment.
+}
+\details{
+The following settings from \code{options()} will be used
+to populate missing arguments:
+\itemize{
+\item \code{arcpy.pro}: (Logical) use ArcGIS Pro.
+\item \code{arcpy.installpath}: (Character) The install path of ArcGIS Pro.
+\item \code{arcpy.condaenv}: (Character) The path to the ArcGIS Pro Conda environment.
+\item \code{arcpy.pythonpath}: (Character) The path to the ArcGIS Desktop Python installation.
+}
 }
 \note{
 (For ArcGIS Pro) The ArcGIS Pro bin folder (typically

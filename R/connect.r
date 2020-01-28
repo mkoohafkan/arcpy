@@ -121,18 +121,26 @@ find_conda = function(installpath, on.fail = c("stop", "warn")) {
 #' @param installpath (ArcGIS Pro only). The ArcGIS Pro installation
 #'   directory. If missing, the function will attempt to
 #'   automatically detect the installation directory.
-#' @param python (ArcGIS Desktop only) Path to the ArcGIS Desktop
+#' @param pythonpath (ArcGIS Desktop only) Path to the ArcGIS Desktop
 #'   Python binary. If missing, the function will attempt to
 #'   automatically detect an appropriate Python installation.
-#' @return No return value.
+#'
+#' @details The following settings from \code{options()} will be used
+#'  to populate missing arguments:
+#' \itemize{
+#'   \item `arcpy.pro`: (Logical) use ArcGIS Pro.
+#'   \item `arcpy.installpath`: (Character) The install path of ArcGIS Pro.
+#'   \item `arcpy.condaenv`: (Character) The path to the ArcGIS Pro Conda environment.
+#'   \item `arcpy.pythonpath`: (Character) The path to the ArcGIS Desktop Python installation.
+#' }
 #'
 #' @note (For ArcGIS Pro) The ArcGIS Pro bin folder (typically
 #'   `C:\Program Files\ArcGIS\Pro\bin`) must be added to the PATH
 #'   variable before the Conda Environment is loaded. For users with
 #'  adminstrator privileges, `withr::with_path()` is used to temporarily
 #'  add the ArcGIS Pro bin folder to the path. Users without
-#'  adminstrator may need to manually add the bin folder to their user 
-#'  PATH variable before starting an R session.
+#'  adminstrator privileges may need to manually add the bin folder to
+#'   their user PATH variable before starting an R session.
 #'
 #' @seealso \code{\link{find_ArcGIS}}
 #'
@@ -149,20 +157,32 @@ find_conda = function(installpath, on.fail = c("stop", "warn")) {
 #' @importFrom reticulate use_python use_condaenv
 #' @importFrom withr with_path
 #' @export
-use_ArcGIS = function(pro = TRUE, condaenv, installpath, python) {
+use_ArcGIS = function(pro, condaenv, installpath, pythonpath) {
+  if (missing(pro)) {
+    pro = getOption("arcpy.pro")
+  }
   if (!pro) {
-    if (missing(python)) {
-      python = find_python()
+    if (missing(pythonpath)) {
+      pythonpath = getOption("arcpy.pythonpath")
     }
-    use_python(python[[1]], required = TRUE)
+    if (is.null(pythonpath)) {
+      pythonpath = find_python()
+    }
+    use_python(pythonpath[[1]], required = TRUE)
     installinfo = arcpy$GetInstallInfo()
   } else {
     if (missing(installpath)) {
+      installpath = getOption("arcpy.installpath")
+    }
+    if (is.null(installpath)) {
       installpath = find_install()
     }
     # update PATH
     pro.bin = normalizePath(file.path(installpath, "bin"))
     if (missing(condaenv)) {
+      condaenv = getOption("arcpy.condaenv")
+    }
+    if (is.null(condaenv)) {
       condaenv = find_env(installpath)[[1]]
     }
     installinfo = with_path(pro.bin, {

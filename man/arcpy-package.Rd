@@ -15,6 +15,16 @@ R-Python interface provided by \code{reticulate}. Loading the
 packages exposes the \code{arcpy} python module for accessing the
 ArcGIS geoprocessor. See the vignettes to get started.
 }
+\details{
+\code{arcpy} uses the following \code{\link[=options]{options()}} to configure behavior:
+
+\itemize{
+\item \code{arcpy.pro}: (Logical) use ArcGIS Pro by default.
+\item \code{arcpy.installpath}: (Character) The default install path of ArcGIS Pro.
+\item \code{arcpy.condaenv}: (Character) The default path to the ArcGIS Pro Conda environment.
+\item \code{arcpy.pythonpath}: (Character) The default path to the ArcGIS Desktop Python installation.
+}
+}
 \examples{
 \dontrun{
 use_ArcGIS()

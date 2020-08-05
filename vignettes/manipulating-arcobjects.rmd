@@ -1,7 +1,7 @@
 ---
 title: "Manipulating arcobjects"
 author: "Michael Koohafkan"
-date: "2020-01-23"
+date: "2020-08-05"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Manipulating ArcObjects}
@@ -30,11 +30,7 @@ library(reticulate)
 
 
 ```
-## Loading arcpy
-```
-
-```
-## Connected to ArcGISPro version 2.4 (build 19948).
+## Connected to ArcGISPro version 2.5.1 (build 22081).
 ```
 
 
@@ -122,14 +118,14 @@ arcpy$Describe(fc)$extent$YMin
 ```
 
 ```
-## C:\Users\mkoohafk\AppData\Local\Temp\RtmpyyeFhj\CA_Counties.shp
+## 
 ## [1] -13854775
 ## [1] 3837931
 ```
 
 It's also possible to mix and match iterators and R functions, often
-with significantly faster results. Here's
-an alternative approach that judicious use of reticulate's `iterate()`
+with significantly faster results. Here's an alternative approach that
+makes judicious use of reticulate's `iterate()`
 function in combination with `lapply()` and the `da_read()` and
 `da_update()` functions:
 
@@ -164,7 +160,7 @@ arcpy$Describe(fc)$extent$YMin
 ```
 
 ```
-## C:\Users\mkoohafk\AppData\Local\Temp\RtmpyyeFhj\CA_Counties.shp
+## 
 ## [1] -13471139
 ## [1] 4787916
 ```

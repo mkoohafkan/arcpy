@@ -28,7 +28,6 @@ library(reticulate)
 ```
 
 ```{r, echo = FALSE}
-devtools::load_all()
 use_ArcGIS(pro = TRUE)
 library(reticulate)
 ```
@@ -105,8 +104,8 @@ arcpy$Describe(fc)$extent$YMin
 ```
 
 It's also possible to mix and match iterators and R functions, often
-with significantly faster results. Here's
-an alternative approach that judicious use of reticulate's `iterate()`
+with significantly faster results. Here's an alternative approach that
+makes judicious use of reticulate's `iterate()`
 function in combination with `lapply()` and the `da_read()` and
 `da_update()` functions:
 

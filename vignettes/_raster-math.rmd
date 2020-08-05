@@ -15,9 +15,16 @@ and simple S3 class definitions. This vignette demonstrates basic usage
 of arcpy Raster Algebra from R. First, we'll set up a workspace and create
 some temporary rasters.
 
-```{r}
+```{r eval = FALSE}
 library(arcpy)
 use_ArcGIS(pro = TRUE)
+```
+
+```{r echo = FALSE}
+use_ArcGIS(pro = TRUE)
+```
+
+```{r}
 
 arcpy$env$workspace = tempdir()
 arcpy$env$scratchWorkspace = tempdir()

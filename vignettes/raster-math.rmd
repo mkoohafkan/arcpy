@@ -1,7 +1,7 @@
 ---
 title: "Raster math with arcpy"
 author: "Michael Koohafkan"
-date: "2020-01-23"
+date: "2020-08-05"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Raster Math}
@@ -21,9 +21,11 @@ library(arcpy)
 use_ArcGIS(pro = TRUE)
 ```
 
+
 ```
-## Connected to ArcGISPro version 2.4 (build 19948).
+## Connected to ArcGISPro version 2.5.1 (build 22081).
 ```
+
 
 ```r
 arcpy$env$workspace = tempdir()

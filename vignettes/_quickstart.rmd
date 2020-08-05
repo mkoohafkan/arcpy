@@ -23,13 +23,10 @@ ArcGIS Pro provides support for Conda virtual environments.
 library(arcpy)
 ```
 
-The `arcpy` package can look for ArcGIS pro installations in their
+The `arcpy` package can look for ArcGIS installations in their
 default locations. 
 
 ```{r}
-# Search for the ArcGIS Desktop Python 2.x installation
-find_ArcGIS(pro = FALSE)
-
 # Search for the default ArcGIS Pro Conda Python 3.x environment
 find_ArcGIS(pro = TRUE)
 

@@ -1,7 +1,7 @@
 ---
 title: "Quickstart to arcpy"
 author: "Michael Koohafkan"
-date: "2020-01-23"
+date: "2020-08-05"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Quickstart}
@@ -25,23 +25,9 @@ ArcGIS Pro provides support for Conda virtual environments.
 library(arcpy)
 ```
 
-The `arcpy` package can look for ArcGIS pro installations in their
+The `arcpy` package can look for ArcGIS installations in their
 default locations. 
 
-
-```r
-# Search for the ArcGIS Desktop Python 2.x installation
-find_ArcGIS(pro = FALSE)
-```
-
-```
-## Warning: Could not find ArcGIS Desktop Python x64 binary.
-```
-
-```
-## $python
-## [1] ""
-```
 
 ```r
 # Search for the default ArcGIS Pro Conda Python 3.x environment
@@ -49,11 +35,7 @@ find_ArcGIS(pro = TRUE)
 ```
 
 ```
-## $installpath
-## [1] "C:\\Program Files\\ArcGIS\\Pro"
-## 
-## $env
-## [1] "C:\\Program Files\\ArcGIS\\Pro\\bin\\Python\\envs\\arcgispro-py3"
+## [1] "C:/Users/mkoohafk/AppData/Local/ESRI/conda/envs/arcgispro-py3-clone"
 ```
 
 ```r
@@ -62,7 +44,7 @@ use_ArcGIS(pro = TRUE)
 ```
 
 ```
-## Connected to ArcGISPro version 2.4 (build 19948).
+## Connected to ArcGISPro version 2.5.1 (build 22081).
 ```
 
 The `arcpy` package automatically provides a `reticulate` module object 
@@ -99,7 +81,7 @@ arcpy$env$workspace
 ```
 
 ```
-## [1] "C:\\Users\\mkoohafk\\AppData\\Local\\Temp\\RtmpyyeFhj"
+## [1] "C:\\Users\\mkoohafk\\AppData\\Local\\Temp\\Rtmp6ZWhiE"
 ```
 
 ```r

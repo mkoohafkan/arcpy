@@ -4,7 +4,9 @@
 \name{tokens}
 \alias{tokens}
 \title{List Field Tokens}
-\format{An object of class \code{character} of length 13.}
+\format{
+An object of class \code{character} of length 13.
+}
 \usage{
 tokens
 }

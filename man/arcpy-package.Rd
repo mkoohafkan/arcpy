@@ -5,7 +5,9 @@
 \alias{arcpy-package}
 \alias{arcpy}
 \title{Interface to ArcPy}
-\format{An object of class \code{python.builtin.module}.}
+\format{
+An object of class \code{python.builtin.module}.
+}
 \usage{
 arcpy
 }

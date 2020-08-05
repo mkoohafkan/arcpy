@@ -9,104 +9,40 @@
 #'
 #' @seealso \code{\link{use_ArcGIS}}
 #'
+#' @importFrom reticulate conda_list
 #' @export
-find_ArcGIS = function(pro = TRUE) {
+find_ArcGIS = function(pro = TRUE, required = TRUE) {
+  if (required) {
+    fail_fun = stop
+  } else {
+    fail_fun = warning
+  }
   if (pro) {
-    installpath = find_install("warn")
-    list(
-      installpath = installpath,
-      env = find_env(installpath, "warn")
-    )
+    envpath = dirname(conda_list()[["python"]])
+    envpath = envpath[grep("^(?=.*ESRI)(?=.*conda)", envpath, perl = TRUE)]
+    if (length(envpath) > 1L) {
+      warning("Multiple ArcGIS Pro environments found.")
+    } else if (length(envpath) < 1L) {
+      fail_fun("No ArcGIS Pro environments found.")
+    }
+    envpath
   } else {
-    list(python = find_python("warn"))
-  }
-}
-
-on_fail = function(on.fail) {
-  on.fail = match.arg(on.fail, c("stop", "warn"))
-  if (on.fail == "stop") {
-    function(..., call. = FALSE) stop(..., call. = call.)
-  } else {
-    function(..., call. = FALSE) warning(..., call. = call.)
-  }
-}
-
-#' Find ArcGIS Pro Install Directory
-#'
-#' @keywords internal
-find_install = function(on.fail = c("stop", "warn")) {
-  fail_fun = on_fail(on.fail)
-  path = normalizePath("C:/Program Files/ArcGIS/Pro", mustWork = FALSE)
-  if (!dir.exists(path)) {
-    fail_fun("Could not find ArcGIS Pro installation.")
-    ""
-  } else {
-    path
-  }
-}
-
-#' Find ArcGIS Desktop Python Distribution
-#'
-#' @keywords internal
-find_python = function(on.fail = c("stop", "warn")) {
-  fail_fun = on_fail(on.fail)
-  if (.Platform$r_arch == "x64") {
-    python_folder = file.path("C:/Python27",
-        dir("C:/Python27")[grepl("ArcGIS.*x64", dir("C:/Python27"))])
-  } else {
-    python_folder = file.path("C:/Python27",
-        dir("C:/Python27")[grepl("ArcGIS.*", dir("C:/Python27")) &
-          !(grepl("ArcGIS.*x64", dir("C:/Python27")))])
-  }
-  if (length(python_folder) > 1) {
-    warning("Multiple ArcGIS Desktop Python binaries found.")
-  } else if (length(python_folder) < 1) {
-    fail_fun("Could not find ArcGIS Desktop Python ",
-      .Platform$r_arch, " binary.")
-    ""
-  } else {
+    python_folder = file.path("C:/Python27", dir("C:/Python27"))
+    python_folder = python_folder[grepl("ArcGIS.*", python_folder)]
+    if (.Platform$r_arch == "x64") {
+      python_folder = python_folder[grepl("ArcGIS.*x64", python_folder)]
+    } else {
+      python_folder = python_folder[!grepl("ArcGIS.*x64", python_folder)]
+    }
+    if (length(python_folder) > 1) {
+      warning("Multiple ArcGIS Desktop Python binaries found.")
+    } else if (length(python_folder) < 1) {
+      fail_fun("No ArcGIS Desktop Python ", .Platform$r_arch,
+        " binaries found.")
+    }
     python_folder
   }
 }
-
-#' Find ArcGIS Pro Conda Environment
-#'
-#' @keywords internal
-find_env = function(installpath, on.fail = c("stop", "warn")) {
-  fail_fun = on_fail(on.fail)
-  env_dir = normalizePath(file.path(installpath, "bin/Python/envs"),
-    mustWork = FALSE)
-  if (!dir.exists(env_dir)) {
-    fail_fun("Could not find ArcGIS Pro Conda Environments directory")
-    return("")
-  }
-  conda_envs = normalizePath(dir(env_dir, full.names = TRUE),
-    mustWork = FALSE)
-  if (length(conda_envs) > 1) {
-    warning("Multiple ArcGIS Pro Conda environments found.")
-  } else if (length(conda_envs) < 1) {
-    fail_fun("Could not find an ArcGIS Pro Conda environment.")
-    ""
-  } else {
-    conda_envs
-  }
-}
-
-#' Find ArcGIS Pro Conda Executable
-#'
-#' DEPRECATED?
-#'
-#' @keywords internal
-find_conda = function(installpath, on.fail = c("stop", "warn")) {
-  fail_fun = on_fail(on.fail)
-  conda_exe = normalizePath(file.path(installpath,
-    "bin/Python/Scripts/conda.exe"), mustWork = FALSE)
-  if (!file.exists(conda_exe)) {
-    fail_fun("Could not find ArcGIS Pro Conda executable.")
-  }
-  conda_exe
-}
-
 
 #' Connect to ArcGIS Python
 #'
@@ -155,48 +91,28 @@ find_conda = function(installpath, on.fail = c("stop", "warn")) {
 #' }
 #'
 #' @importFrom reticulate use_python use_condaenv
-#' @importFrom withr with_path
 #' @export
-use_ArcGIS = function(pro, condaenv, installpath, pythonpath) {
+use_ArcGIS = function(pro, pythonpath) {
   if (missing(pro)) {
     pro = getOption("arcpy.pro")
   }
-  if (!pro) {
-    if (missing(pythonpath)) {
-      pythonpath = getOption("arcpy.pythonpath")
-    }
-    if (is.null(pythonpath)) {
-      pythonpath = find_python()
-    }
-    use_python(pythonpath[[1]], required = TRUE)
-    installinfo = arcpy$GetInstallInfo()
+  if (is.null(pro)) {
+    pro = TRUE
+  }
+  if (missing(pythonpath)) {
+    pythonpath = getOption("arcpy.pythonpath")
+  }
+  if (is.null(pythonpath)) {
+    pythonpath = find_ArcGIS(pro, TRUE)[[1]]
+  }
+  if (pro) {
+    use_condaenv(pythonpath, required = TRUE)
   } else {
-    if (missing(installpath)) {
-      installpath = getOption("arcpy.installpath")
-    }
-    if (is.null(installpath)) {
-      installpath = find_install()
-    }
-    # update PATH
-    pro.bin = normalizePath(file.path(installpath, "bin"))
-    if (missing(condaenv)) {
-      condaenv = getOption("arcpy.condaenv")
-    }
-    if (is.null(condaenv)) {
-      condaenv = find_env(installpath)[[1]]
-    }
-    installinfo = with_path(pro.bin, {
-      use_condaenv(condaenv = condaenv[[1]], required = TRUE)
-      # need to access arcpy while path is modified to load correctly
-      installinfo = try(arcpy$GetInstallInfo())
-    })
+    use_python(pythonpath, required = TRUE)
   }
-  if (class(installinfo) == "try-error") {
-    stop("The arcpy module could not be loaded.\n",
-      "If your user account does not have adminstrator privileges, ",
-      "try adding ", shQuote(pro.bin), " to your user PATH variable ",
-      "and retry.\nYou may also need to restart your R session.")
-  }
+  installinfo = tryCatch(arcpy$GetInstallInfo(),
+    error = function(e) stop("The arcpy module could not be loaded. ",
+      "Check that the Product License is available.\n", e$message, call. = FALSE))
   with(installinfo,
     message("Connected to ", ProductName,
     " version ", Version, " (build ", BuildNumber, ")."))

@@ -4,12 +4,16 @@
 \alias{use_ArcGIS}
 \title{Connect to ArcGIS Python}
 \usage{
-use_ArcGIS(pro, condaenv, installpath, pythonpath)
+use_ArcGIS(pro, pythonpath)
 }
 \arguments{
 \item{pro}{If \code{TRUE}, attempt to connect to an ArcGIS Pro
 Python distribution. Otherwise, attempt to connect to an ArcGIS
 Desktop Python distribution. Ignored if \code{python} is provided.}
+
+\item{pythonpath}{(ArcGIS Desktop only) Path to the ArcGIS Desktop
+Python binary. If missing, the function will attempt to
+automatically detect an appropriate Python installation.}
 
 \item{condaenv}{(ArcGIS Pro only). The ArcGIS Pro Conda environment
 to use. If missing, the function will attempt to automatically
@@ -18,10 +22,6 @@ detect the default Conda environment.}
 \item{installpath}{(ArcGIS Pro only). The ArcGIS Pro installation
 directory. If missing, the function will attempt to
 automatically detect the installation directory.}
-
-\item{pythonpath}{(ArcGIS Desktop only) Path to the ArcGIS Desktop
-Python binary. If missing, the function will attempt to
-automatically detect an appropriate Python installation.}
 }
 \description{
 Connect to the ArcGIS Python environment.
@@ -42,8 +42,8 @@ to populate missing arguments:
 variable before the Conda Environment is loaded. For users with
 adminstrator privileges, \code{withr::with_path()} is used to temporarily
 add the ArcGIS Pro bin folder to the path. Users without
-adminstrator may need to manually add the bin folder to their user
-PATH variable before starting an R session.
+adminstrator privileges may need to manually add the bin folder to
+their user PATH variable before starting an R session.
 }
 \examples{
 \dontrun{

@@ -9,41 +9,38 @@ use_ArcGIS(pro, pythonpath)
 \arguments{
 \item{pro}{If \code{TRUE}, attempt to connect to an ArcGIS Pro
 Python distribution. Otherwise, attempt to connect to an ArcGIS
-Desktop Python distribution. Ignored if \code{python} is provided.}
+Desktop Python distribution. Ignored if \code{pythonpath} is provided.}
 
-\item{pythonpath}{(ArcGIS Desktop only) Path to the ArcGIS Desktop
-Python binary. If missing, the function will attempt to
-automatically detect an appropriate Python installation.}
-
-\item{condaenv}{(ArcGIS Pro only). The ArcGIS Pro Conda environment
-to use. If missing, the function will attempt to automatically
-detect the default Conda environment.}
-
-\item{installpath}{(ArcGIS Pro only). The ArcGIS Pro installation
-directory. If missing, the function will attempt to
-automatically detect the installation directory.}
+\item{pythonpath}{if \code{pro = TRUE}, the path to the ArcGIS Pro Conda
+environment. If missing, the function will attempt to automatically
+detect the default Conda environment. If \code{Pro = FALSE}, the path to
+the ArcGIS Desktop Python binary. If missing, the function will
+attempt to automatically detect an appropriate Python installation.}
 }
 \description{
 Connect to the ArcGIS Python environment.
 }
 \details{
-The following settings from \code{options()} will be used
+The following settings from \code{\link[=options]{options()}} will be used
 to populate missing arguments:
 \itemize{
 \item \code{arcpy.pro}: (Logical) use ArcGIS Pro.
-\item \code{arcpy.installpath}: (Character) The install path of ArcGIS Pro.
-\item \code{arcpy.condaenv}: (Character) The path to the ArcGIS Pro Conda environment.
-\item \code{arcpy.pythonpath}: (Character) The path to the ArcGIS Desktop Python installation.
+\item \code{arcpy.installpath}: (Character) The install path of
+ArcGIS Pro.
+\item \code{arcpy.condaenv}: (Character) The path to the
+ArcGIS Pro Conda environment.
+\item \code{arcpy.pythonpath}: (Character) The path to the
+ArcGIS Desktop Python installation.
 }
 }
 \note{
 (For ArcGIS Pro) The ArcGIS Pro bin folder (typically
-\verb{C:\\Program Files\\ArcGIS\\Pro\\bin}) must be added to the PATH
+\verb{C:\\Program Files\\ArcGIS\\Pro\\bin}) must be added to the \code{PATH}
 variable before the Conda Environment is loaded. For users with
 adminstrator privileges, \code{withr::with_path()} is used to temporarily
 add the ArcGIS Pro bin folder to the path. Users without
 adminstrator privileges may need to manually add the bin folder to
-their user PATH variable before starting an R session.
+their user \code{PATH} variable before starting an R session.
 }
 \examples{
 \dontrun{
@@ -57,5 +54,5 @@ use_ArcGIS("C:/Python27/ArcGIS10.2")
 
 }
 \seealso{
-\code{\link{find_ArcGIS}}
+\code{\link[=find_ArcGIS]{find_ArcGIS()}}
 }

@@ -9,9 +9,12 @@
 #'
 #' \itemize{
 #'   \item `arcpy.pro`: (Logical) use ArcGIS Pro by default.
-#'   \item `arcpy.installpath`: (Character) The default install path of ArcGIS Pro.
-#'   \item `arcpy.condaenv`: (Character) The default path to the ArcGIS Pro Conda environment.
-#'   \item `arcpy.pythonpath`: (Character) The default path to the ArcGIS Desktop Python installation.
+#'   \item `arcpy.installpath`: (Character) The default install path
+#'     of ArcGIS Pro.
+#'   \item `arcpy.condaenv`: (Character) The default path to the
+#'     ArcGIS Pro Conda environment.
+#'   \item `arcpy.pythonpath`: (Character) The default path to the
+#'     ArcGIS Desktop Python installation.
 #' }
 #'
 #' @name arcpy-package

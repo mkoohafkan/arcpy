@@ -19,7 +19,8 @@ each top-level element corresponding to one row of the table.}
 a dataframe with columns corresponding to \code{fields}.
 }
 \description{
-Read a table (e.g. attribute table of a layer) with the arcpy.da module.
+Read a table (e.g. attribute table of a layer) with the
+\code{arcpy.da} module.
 }
 \details{
 This implementation may be faster than accessing the

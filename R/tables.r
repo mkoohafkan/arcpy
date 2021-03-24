@@ -33,14 +33,19 @@ da_fields = function(table.path) {
 #' * OID@ The OBJECTID for the feature.
 #' * SHAPE@ A geometry object for the feature.
 #' * SHAPE@XY A tuple of the feature 's centroid x,y coordinates.
-#' * SHAPE@TRUECENTROID A tuple of the feature' s true centroid x, y coordinates.
+#' * SHAPE@TRUECENTROID A tuple of the feature's true centroid
+#'   x, y coordinates.
 #' * SHAPE@X A double of the feature 's x-coordinate.
 #' * SHAPE@Y A double of the feature' s y - coordinate.
 #' * SHAPE@Z A double of the feature 's z-coordinate.
 #' * SHAPE@M A double of the feature' s m - value.
 #' * SHAPE@JSON The esri JSON string representing the geometry.
-#' * SHAPE@WKB The well-known binary(WKB) representation for OGC geometry. It provides a portable representation of a geometry value as a contiguous stream of bytes.
-#' * SHAPE@WKT The well-known text(WKT) representation for OGC geometry. It provides a portable representation of a geometry value as a text string.
+#' * SHAPE@WKB The well-known binary(WKB) representation for
+#'   OGC geometry. It provides a portable representation of a
+#'   geometry value as a contiguous stream of bytes.
+#' * SHAPE@WKT The well-known text(WKT) representation for
+#'   OGC geometry. It provides a portable representation of a
+#'   geometry value as a text string.
 #' * SHAPE@AREA A double of the feature 's area.
 #' * SHAPE@LENGTH A double of the feature' s length.
 #' @keywords internal
@@ -72,11 +77,12 @@ fields_exist = function(table.path, fields) {
 
 #' Read Table with arcpy.da
 #'
-#' Read a table (e.g. attribute table of a layer) with the arcpy.da module.
+#' Read a table (e.g. attribute table of a layer) with the
+#' `arcpy.da` module.
 #'
 #' @param table.path The file path to the table.
 #' @param fields A vector of field names or column indices to retrieve.
-#' @param simplify If \code{TRUE}, coerce the results to a data.frame. If
+#' @param simplify If `TRUE`, coerce the results to a data.frame. If
 #'   \code{FALSE}, the results will be returned as a list of lists, with
 #'   each top-level element corresponding to one row of the table.
 #' @return a dataframe with columns corresponding to \code{fields}.

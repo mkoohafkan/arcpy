@@ -10,6 +10,9 @@ find_ArcGIS(pro = TRUE, required = TRUE)
 \item{pro}{If \code{TRUE}, Search for ArcGIS Pro
 Python distribution. Otherwise, search for ArcGIS
 Desktop Python distribution.}
+
+\item{required}{if \code{TRUE}, return an error if an arcpy
+environment cannot be found.}
 }
 \value{
 Path(s) to ArcGIS Python distributions.
@@ -18,5 +21,5 @@ Path(s) to ArcGIS Python distributions.
 Attempt to automatically locate an ArcGIS installation.
 }
 \seealso{
-\code{\link{use_ArcGIS}}
+\code{\link[=use_ArcGIS]{use_ArcGIS()}}
 }

@@ -2,12 +2,14 @@
 #'
 #' Attempt to automatically locate an ArcGIS installation.
 #'
-#' @param pro If \code{TRUE}, Search for ArcGIS Pro
+#' @param pro If `TRUE`, Search for ArcGIS Pro
 #'   Python distribution. Otherwise, search for ArcGIS
 #'   Desktop Python distribution.
+#' @param required if `TRUE`, return an error if an arcpy
+#'   environment cannot be found.
 #' @return Path(s) to ArcGIS Python distributions.
 #'
-#' @seealso \code{\link{use_ArcGIS}}
+#' @seealso [`use_ArcGIS()`]
 #'
 #' @importFrom reticulate conda_list
 #' @export
@@ -19,7 +21,8 @@ find_ArcGIS = function(pro = TRUE, required = TRUE) {
   }
   if (pro) {
     envpath = dirname(conda_list()[["python"]])
-    envpath = envpath[grep("^(?=.*ESRI)(?=.*conda)", envpath, perl = TRUE)]
+    envpath = envpath[grep("^(?=.*ESRI)(?=.*conda)", envpath,
+      perl = TRUE)]
     if (length(envpath) > 1L) {
       warning("Multiple ArcGIS Pro environments found.")
     } else if (length(envpath) < 1L) {
@@ -27,20 +30,20 @@ find_ArcGIS = function(pro = TRUE, required = TRUE) {
     }
     envpath
   } else {
-    python_folder = file.path("C:/Python27", dir("C:/Python27"))
-    python_folder = python_folder[grepl("ArcGIS.*", python_folder)]
+    py_dir = file.path("C:/Python27", dir("C:/Python27"))
+    py_dir = py_dir[grepl("ArcGIS.*", py_dir)]
     if (.Platform$r_arch == "x64") {
-      python_folder = python_folder[grepl("ArcGIS.*x64", python_folder)]
+      py_dir = py_dir[grepl("ArcGIS.*x64", py_dir)]
     } else {
-      python_folder = python_folder[!grepl("ArcGIS.*x64", python_folder)]
+      py_dir = py_dir[!grepl("ArcGIS.*x64", py_dir)]
     }
-    if (length(python_folder) > 1) {
+    if (length(py_dir) > 1) {
       warning("Multiple ArcGIS Desktop Python binaries found.")
-    } else if (length(python_folder) < 1) {
+    } else if (length(py_dir) < 1) {
       fail_fun("No ArcGIS Desktop Python ", .Platform$r_arch,
         " binaries found.")
     }
-    python_folder
+    py_dir
   }
 }
 
@@ -48,37 +51,34 @@ find_ArcGIS = function(pro = TRUE, required = TRUE) {
 #'
 #' Connect to the ArcGIS Python environment.
 #'
-#' @param pro If \code{TRUE}, attempt to connect to an ArcGIS Pro
+#' @param pro If `TRUE`, attempt to connect to an ArcGIS Pro
 #'   Python distribution. Otherwise, attempt to connect to an ArcGIS
-#'   Desktop Python distribution. Ignored if \code{python} is provided.
-#' @param condaenv (ArcGIS Pro only). The ArcGIS Pro Conda environment
-#'   to use. If missing, the function will attempt to automatically
-#'   detect the default Conda environment.
-#' @param installpath (ArcGIS Pro only). The ArcGIS Pro installation
-#'   directory. If missing, the function will attempt to
-#'   automatically detect the installation directory.
-#' @param pythonpath (ArcGIS Desktop only) Path to the ArcGIS Desktop
-#'   Python binary. If missing, the function will attempt to
-#'   automatically detect an appropriate Python installation.
+#'   Desktop Python distribution. Ignored if `pythonpath` is provided.
+#' @param pythonpath if `pro = TRUE`, the path to the ArcGIS Pro Conda
+#'   environment. If missing, the function will attempt to automatically
+#'   detect the default Conda environment. If `Pro = FALSE`, the path to
+#'   the ArcGIS Desktop Python binary. If missing, the function will
+#'   attempt to automatically detect an appropriate Python installation.
 #'
-#' @details The following settings from \code{options()} will be used
+#' @details The following settings from [`options()`] will be used
 #'  to populate missing arguments:
-#' \itemize{
-#'   \item `arcpy.pro`: (Logical) use ArcGIS Pro.
-#'   \item `arcpy.installpath`: (Character) The install path of ArcGIS Pro.
-#'   \item `arcpy.condaenv`: (Character) The path to the ArcGIS Pro Conda environment.
-#'   \item `arcpy.pythonpath`: (Character) The path to the ArcGIS Desktop Python installation.
-#' }
+#'  * `arcpy.pro`: (Logical) use ArcGIS Pro.
+#'  * `arcpy.installpath`: (Character) The install path of
+#'     ArcGIS Pro.
+#'  * `arcpy.condaenv`: (Character) The path to the
+#'     ArcGIS Pro Conda environment.
+#'  * `arcpy.pythonpath`: (Character) The path to the
+#'     ArcGIS Desktop Python installation.
 #'
 #' @note (For ArcGIS Pro) The ArcGIS Pro bin folder (typically
-#'   `C:\Program Files\ArcGIS\Pro\bin`) must be added to the PATH
+#'   `C:\Program Files\ArcGIS\Pro\bin`) must be added to the `PATH`
 #'   variable before the Conda Environment is loaded. For users with
 #'  adminstrator privileges, `withr::with_path()` is used to temporarily
 #'  add the ArcGIS Pro bin folder to the path. Users without
 #'  adminstrator privileges may need to manually add the bin folder to
-#'   their user PATH variable before starting an R session.
+#'   their user `PATH` variable before starting an R session.
 #'
-#' @seealso \code{\link{find_ArcGIS}}
+#' @seealso [`find_ArcGIS()`]
 #'
 #' @examples
 #' \dontrun{
@@ -112,7 +112,8 @@ use_ArcGIS = function(pro, pythonpath) {
   }
   installinfo = tryCatch(arcpy$GetInstallInfo(),
     error = function(e) stop("The arcpy module could not be loaded. ",
-      "Check that the Product License is available.\n", e$message, call. = FALSE))
+      "Check that the Product License is available.\n",
+      e$message, call. = FALSE))
   with(installinfo,
     message("Connected to ", ProductName,
     " version ", Version, " (build ", BuildNumber, ")."))

@@ -23,14 +23,19 @@ all tokens are valid for all geometries.
 \item OID@ The OBJECTID for the feature.
 \item SHAPE@ A geometry object for the feature.
 \item SHAPE@XY A tuple of the feature 's centroid x,y coordinates.
-\item SHAPE@TRUECENTROID A tuple of the feature' s true centroid x, y coordinates.
+\item SHAPE@TRUECENTROID A tuple of the feature's true centroid
+x, y coordinates.
 \item SHAPE@X A double of the feature 's x-coordinate.
 \item SHAPE@Y A double of the feature' s y - coordinate.
 \item SHAPE@Z A double of the feature 's z-coordinate.
 \item SHAPE@M A double of the feature' s m - value.
 \item SHAPE@JSON The esri JSON string representing the geometry.
-\item SHAPE@WKB The well-known binary(WKB) representation for OGC geometry. It provides a portable representation of a geometry value as a contiguous stream of bytes.
-\item SHAPE@WKT The well-known text(WKT) representation for OGC geometry. It provides a portable representation of a geometry value as a text string.
+\item SHAPE@WKB The well-known binary(WKB) representation for
+OGC geometry. It provides a portable representation of a
+geometry value as a contiguous stream of bytes.
+\item SHAPE@WKT The well-known text(WKT) representation for
+OGC geometry. It provides a portable representation of a
+geometry value as a text string.
 \item SHAPE@AREA A double of the feature 's area.
 \item SHAPE@LENGTH A double of the feature' s length.
 }

@@ -22,9 +22,12 @@ ArcGIS geoprocessor. See the vignettes to get started.
 
 \itemize{
 \item \code{arcpy.pro}: (Logical) use ArcGIS Pro by default.
-\item \code{arcpy.installpath}: (Character) The default install path of ArcGIS Pro.
-\item \code{arcpy.condaenv}: (Character) The default path to the ArcGIS Pro Conda environment.
-\item \code{arcpy.pythonpath}: (Character) The default path to the ArcGIS Desktop Python installation.
+\item \code{arcpy.installpath}: (Character) The default install path
+of ArcGIS Pro.
+\item \code{arcpy.condaenv}: (Character) The default path to the
+ArcGIS Pro Conda environment.
+\item \code{arcpy.pythonpath}: (Character) The default path to the
+ArcGIS Desktop Python installation.
 }
 }
 \examples{

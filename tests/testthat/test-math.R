@@ -5,7 +5,8 @@ test_that("arcpy raster math works", {
   use_ArcGIS()
 
   expect_max_equal = function(raster, value) {
-    raster.max = as.numeric(arcpy$management$GetRasterProperties(raster, "MAXIMUM")[[0]])
+    raster.max = as.numeric(arcpy$management$GetRasterProperties(raster,
+      "MAXIMUM")[[0]])
     expect_equivalent(raster.max, value)
   }
 
@@ -32,8 +33,8 @@ test_that("arcpy raster math works", {
   expect_max_equal(raster1 > raster2, 0)
   expect_max_equal(raster1 < raster2, 1)
 
-  expect_max_equal((raster > raster2) & (raster2 > 2), 0)
-  expect_max_equal((raster > raster2) | (raster2 > 2), 1)
+  expect_max_equal((raster1 > raster2) & (raster2 > 2), 0)
+  expect_max_equal((raster1 > raster2) | (raster2 > 2), 1)
 
   arcpy$CheckInExtension("Spatial")
 

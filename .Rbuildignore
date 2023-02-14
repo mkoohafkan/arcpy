@@ -19,3 +19,4 @@ vignettes/_quickstart.rmd
 vignettes/_raster-math.rmd
 
 ^cran-comments.md$
+^\.github$

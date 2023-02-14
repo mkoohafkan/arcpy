@@ -7,4 +7,5 @@
   if (is.null(getOption("arcpy.pro"))) {
     options(arcpy.pro = TRUE)
   }
+  invisible(TRUE)
 }

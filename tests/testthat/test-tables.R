@@ -1,8 +1,6 @@
 test_that("attribute table helper functions work", {
   skip_on_cran()
-  skip_on_travis()
-
-  use_ArcGIS()
+  skip_if_no_arcgis()
 
   arcpy$env$workspace = tempdir()
   arcpy$env$scratchWorkspace = tempdir()

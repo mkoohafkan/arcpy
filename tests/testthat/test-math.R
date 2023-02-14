@@ -1,8 +1,6 @@
 test_that("arcpy raster math works", {
   skip_on_cran()
-  skip_on_travis()
-
-  use_ArcGIS()
+  skip_if_no_arcgis()
 
   expect_max_equal = function(raster, value) {
     raster.max = as.numeric(arcpy$management$GetRasterProperties(raster,

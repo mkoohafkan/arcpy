@@ -9,7 +9,8 @@ Authors@R:
 Description: An interface to the ArcGIS "arcpy" module using reticulate.
     This package is in early development and needs more testing! Report
     bugs to theGitHub Issue Tracker.
-URL: https://github.com/mkoohafkan/arcpy
+URL: https://github.com/mkoohafkan/arcpy,
+    http://hydroecology.net/arcpy/
 BugReports: https://github.com/mkoohafkan/arcpy/issues
 SystemRequirements: 
     ArcGIS Pro (>= 2.5) or ArcGIS Desktop (>= 10.2) with Background Geoprocessing (64-bit).
@@ -25,6 +26,7 @@ Suggests:
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+Config/testthat/edition: 3

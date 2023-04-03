@@ -106,7 +106,7 @@ Bitwise Operators
 }
 \examples{
 \dontrun{
-use_ArcGIS()
+use_arcpy()
 arcpy$env$workspace = tempdir()
 arcpy$env$scratchWorkspace = tempdir()
 arcpy$CheckOutExtension("Spatial")

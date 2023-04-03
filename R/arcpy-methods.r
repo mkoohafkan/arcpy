@@ -25,7 +25,7 @@ ops = reticulate::import("operator", delay_load = TRUE)
 #'
 #' @examples
 #' \dontrun{
-#' use_ArcGIS()
+#' use_arcpy()
 #' arcpy$env$workspace = tempdir()
 #' arcpy$env$scratchWorkspace = tempdir()
 #' arcpy$CheckOutExtension("Spatial")

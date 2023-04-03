@@ -5,7 +5,7 @@
 \title{Create ArcGIS Conda Environment}
 \usage{
 create_arcpy_env(
-  env_name = "arcpy-env",
+  env_name = "r-arcpy",
   arcgis_version = "",
   python_version = ""
 )

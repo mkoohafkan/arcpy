@@ -39,7 +39,7 @@ unset_arcpy_env = function() {
 #'
 #' @importFrom reticulate conda_list conda_create
 #' @export
-create_arcpy_env = function(env_name = "arcpy-env",
+create_arcpy_env = function(env_name = "r-arcpy",
   arcgis_version = "", python_version = "") {
   app_version = sprintf("%0.1f", as.numeric(arcgis_version))
   py_version = sprintf("%0.1f", as.numeric(python_version))

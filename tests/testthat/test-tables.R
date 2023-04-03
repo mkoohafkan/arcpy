@@ -1,5 +1,4 @@
 test_that("attribute table helper functions work", {
-  skip_on_cran()
   skip_if_no_arcgis()
 
   arcpy$env$workspace = tempdir()
@@ -22,7 +21,7 @@ test_that("attribute table helper functions work", {
   d["ALAND"] = d$ALAND + 5000
   da_update(fc, d)
   new.d = da_read(fc, "ALAND")
-  expect_equivalent(d$ALAND, new.d$ALAND)
+  expect_equal(d$ALAND, new.d$ALAND, ignore_attr = TRUE)
 
   # inserting rows
   d = da_read(fc, c("ALAND", "CLASSFP"))
@@ -31,7 +30,7 @@ test_that("attribute table helper functions work", {
   da_insert(fc, add.d)
   new.d = tail(da_read(fc, c("ALAND", "CLASSFP")), 1)
   arcpy$management$Delete(fc)
-  expect_equivalent(new.d, add.d)
+  expect_equal(new.d, add.d, ignore_attr = TRUE)
 
   # dropping rows
   fc = arcpy$management$CopyFeatures(system.file("CA_Counties",

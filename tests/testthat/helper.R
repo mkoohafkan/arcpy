@@ -1,12 +1,6 @@
 skip_if_no_arcgis = function() {
-  connected = tryCatch({
-    use_ArcGIS()
-    TRUE
-  }, error = function(e)
-    FALSE
-  )
-  if (connected) {
-    return(invisible(TRUE))
+  skip_on_cran()
+  if (!require_arcpy(quietly = TRUE)) {
+    skip("Could not connect to ArcGIS")
   }
-  skip("Could not connect to ArcGIS")
 }

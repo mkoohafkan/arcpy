@@ -1,11 +1,10 @@
 test_that("arcpy raster math works", {
-  skip_on_cran()
   skip_if_no_arcgis()
 
   expect_max_equal = function(raster, value) {
     raster.max = as.numeric(arcpy$management$GetRasterProperties(raster,
       "MAXIMUM")[[0]])
-    expect_equivalent(raster.max, value)
+    expect_equal(raster.max, value, ignore_attr = TRUE)
   }
 
   arcpy$env$workspace = tempdir()

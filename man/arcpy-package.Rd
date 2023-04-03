@@ -21,24 +21,19 @@ ArcGIS geoprocessor. See the vignettes to get started.
 \code{arcpy} uses the following \code{\link[=options]{options()}} to configure behavior:
 
 \itemize{
-\item \code{arcpy.pro}: (Logical) use ArcGIS Pro by default.
-\item \code{arcpy.installpath}: (Character) The default install path
-of ArcGIS Pro.
-\item \code{arcpy.condaenv}: (Character) The default path to the
-ArcGIS Pro Conda environment.
-\item \code{arcpy.pythonpath}: (Character) The default path to the
-ArcGIS Desktop Python installation.
+\item \code{arcpy.env}: The name of an ArcGIS conda environment, or the
+path to an ArcGIS Desktop Python binary.
 }
 }
 \examples{
 \dontrun{
-use_ArcGIS()
+use_arcpy()
 arcpy$GetInstallInfo()
 mygis = arcgis$gis$GIS()
 }
 
 }
 \seealso{
-\code{\link{use_ArcGIS}}, \code{\link{RasterAlgebra}}
+\code{\link{use_arcpy}}, \code{\link{RasterAlgebra}}
 }
 \keyword{datasets}

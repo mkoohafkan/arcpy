@@ -8,20 +8,15 @@
 #' \code{arcpy} uses the following [options()] to configure behavior:
 #'
 #' \itemize{
-#'   \item `arcpy.pro`: (Logical) use ArcGIS Pro by default.
-#'   \item `arcpy.installpath`: (Character) The default install path
-#'     of ArcGIS Pro.
-#'   \item `arcpy.condaenv`: (Character) The default path to the
-#'     ArcGIS Pro Conda environment.
-#'   \item `arcpy.pythonpath`: (Character) The default path to the
-#'     ArcGIS Desktop Python installation.
+#'   \item `arcpy.env`: The name of an ArcGIS conda environment, or the
+#'     path to an ArcGIS Desktop Python binary.
 #' }
 #'
 #' @name arcpy-package
 #' @aliases arcpy
 #' @docType package
 #' @md
-#' @seealso \code{\link{use_ArcGIS}}, \code{\link{RasterAlgebra}}
+#' @seealso \code{\link{use_arcpy}}, \code{\link{RasterAlgebra}}
 NULL
 
 #' @rdname arcpy-package
@@ -29,7 +24,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' use_ArcGIS()
+#' use_arcpy()
 #' arcpy$GetInstallInfo()
 #' mygis = arcgis$gis$GIS()
 #' }

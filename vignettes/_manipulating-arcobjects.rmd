@@ -23,12 +23,12 @@ instances.
 
 ```{r, eval = FALSE}
 library(arcpy)
-use_ArcGIS(pro = TRUE)
+use_arcpy()
 library(reticulate)
 ```
 
 ```{r, echo = FALSE}
-use_ArcGIS(pro = TRUE)
+use_arcpy()
 library(reticulate)
 ```
 

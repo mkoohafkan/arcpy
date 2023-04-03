@@ -13,25 +13,42 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Getting started with `arcpy` in R is easy. Use the `use_ArcGIS()` 
-function to connect to an ArcGIS installation. If you don't specify
-a path, `arcpy` will search in the standard installation folders.
-ArcGIS Desktop provides a stand-alone python installation while
-ArcGIS Pro provides support for Conda virtual environments.
+Getting started with `arcpy` in R is easy. If you're using ArcGIS Pro,
+you'll first need to create a Conda environment that will link to your
+ArcGIS Pro install. For example, here's how you would create a Conda
+environment to link to an ArcGIS Pro 3.0 install (note that ArcGIS Pro
+3.0 uses Python 3.9).
 
 ```{r eval = FALSE}
 library(arcpy)
+
+create_arcpy_env("r-arcpy", arcgis_version = "3.0", python_version = "3.9")
 ```
 
-The `arcpy` package can look for ArcGIS installations in their
-default locations. 
+There is no good way for R to query the installed version of ArcGIS 
+Pro, or to get the Python version that the ArcGIS Pro install uses,
+so you'll have to provide this info.
 
-```{r}
-# Search for the default ArcGIS Pro Conda Python 3.x environment
-find_ArcGIS(pro = TRUE)
+Once you've created the environment, you can call `use_arcpy()` 
+to connect to that environment.
 
-# use the default ArcGIS Pro Conda Python 3.x environment
-use_ArcGIS(pro = TRUE)
+```{r eval = FALSE}
+use_arcpy("r-arcpy")
+```
+
+```{r echo = FALSE}
+use_arcpy("r-arcpy")
+```
+
+
+If you are using ArcGIS Desktop, you'll need to pass the path to the
+ArcGIS Desktop Python Binaries instead of a Conda environment name.
+You can set the default Conda environment/binary path via the option
+`arcpy.env` in your .Rprofile.
+
+```
+{r}
+options(arcpy.env = "r-arcpy")
 ```
 
 The `arcpy` package automatically provides a `reticulate` module object 
@@ -48,7 +65,7 @@ The `arcpy` pacakge also re-exports reticulate's `py_help` function so that
 you can access the `arcpy` documentation.
 
 
-```{r}
+```{r eval = FALSE}
 # get and set the arcpy environment
 arcpy$env$workspace = tempdir()
 arcpy$env$workspace
@@ -56,5 +73,12 @@ arcpy$env$workspace
 # get help on arcpy functions
 py_help(arcpy$Exists)
 ```
+
+```{r echo = FALSE}
+# get and set the arcpy environment
+arcpy$env$workspace = tempdir()
+arcpy$env$workspace
+```
+
 
 Happy scripting!

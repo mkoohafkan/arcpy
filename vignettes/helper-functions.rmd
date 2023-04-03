@@ -1,7 +1,7 @@
 ---
 title: "Using the helper functions"
 author: "Michael Koohafkan"
-date: "2020-08-05"
+date: "2023-04-02"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Helper Functions}
@@ -23,12 +23,14 @@ A copy of this file is included with the `arcpy` package.
 
 ```r
 library(arcpy)
-use_ArcGIS(pro = TRUE)
+use_arcpy()
 ```
 
+
 ```
-## Connected to ArcGISPro version 2.5.1 (build 22081).
+## Connected to ArcGISPro version 3.0.2 (build 36056)
 ```
+
 
 ```r
 # set workspace
@@ -67,11 +69,7 @@ da_read(fc, fields = c("OID@", "NAME", "SHAPE@TRUECENTROID"))
 ```
 
 ```
-## Loading required namespace: tibble
-```
-
-```
-## # A tibble: 58 x 3
+## # A tibble: 58 × 3
 ##    `OID@` NAME          `SHAPE@TRUECENTROID`
 ##     <int> <chr>         <list>              
 ##  1      0 Sierra        <list [2]>          
@@ -84,7 +82,7 @@ da_read(fc, fields = c("OID@", "NAME", "SHAPE@TRUECENTROID"))
 ##  8      7 Kings         <list [2]>          
 ##  9      8 San Diego     <list [2]>          
 ## 10      9 Placer        <list [2]>          
-## # ... with 48 more rows
+## # … with 48 more rows
 ```
 
 You can use `da_update` to modify attributes.
@@ -136,17 +134,18 @@ head(da_read(fc))
 ```
 
 ```
-## # A tibble: 6 x 20
-##     FID Shape STATEFP COUNTYFP COUNTYNS GEOID NAME  NAMELSAD LSAD  CLASSFP MTFCC CSAFP CBSAFP METDIVFP
-##   <int> <lis> <chr>   <chr>    <chr>    <chr> <chr> <chr>    <chr> <chr>   <chr> <chr> <chr>  <chr>   
-## 1     0 <lis~ 06      091      00277310 06091 Sier~ Sierra ~ 06    H1      G4020 " "   " "    " "     
-## 2     1 <lis~ 06      083      00277306 06083 Sant~ Santa B~ 06    H1      G4020 " "   "4220~ " "     
-## 3     2 <lis~ 06      009      01675885 06009 Cala~ Calaver~ 06    H1      G4020 " "   " "    " "     
-## 4     3 <lis~ 06      111      00277320 06111 Vent~ Ventura~ 06    H1      G4020 "348" "3710~ " "     
-## 5     4 <lis~ 06      037      00277283 06037 Los ~ Los Ang~ 06    H1      G4020 "348" "3108~ "31084" 
-## 6     5 <lis~ 06      097      01657246 06097 Sono~ Sonoma ~ 06    H1      G4020 "488" "4222~ " "     
-## # ... with 6 more variables: FUNCSTAT <chr>, ALAND <dbl>, AWATER <dbl>, INTPTLAT <chr>, INTPTLON <chr>,
-## #   FRACLAND <dbl>
+## # A tibble: 6 × 20
+##     FID Shape  STATEFP COUNTYFP COUNTYNS GEOID NAME  NAMEL…¹ LSAD  CLASSFP MTFCC
+##   <int> <list> <chr>   <chr>    <chr>    <chr> <chr> <chr>   <chr> <chr>   <chr>
+## 1     0 <list> 06      091      00277310 06091 Sier… Sierra… 06    H1      G4020
+## 2     1 <list> 06      083      00277306 06083 Sant… Santa … 06    H1      G4020
+## 3     2 <list> 06      009      01675885 06009 Cala… Calave… 06    H1      G4020
+## 4     3 <list> 06      111      00277320 06111 Vent… Ventur… 06    H1      G4020
+## 5     4 <list> 06      037      00277283 06037 Los … Los An… 06    H1      G4020
+## 6     5 <list> 06      097      01657246 06097 Sono… Sonoma… 06    H1      G4020
+## # … with 9 more variables: CSAFP <chr>, CBSAFP <chr>, METDIVFP <chr>,
+## #   FUNCSTAT <chr>, ALAND <dbl>, AWATER <dbl>, INTPTLAT <chr>, INTPTLON <chr>,
+## #   FRACLAND <dbl>, and abbreviated variable name ¹​NAMELSAD
 ```
 
 

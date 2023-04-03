@@ -1,7 +1,7 @@
 ---
 title: "Manipulating arcobjects"
 author: "Michael Koohafkan"
-date: "2020-08-05"
+date: "2023-04-02"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Manipulating ArcObjects}
@@ -24,13 +24,13 @@ instances.
 
 ```r
 library(arcpy)
-use_ArcGIS(pro = TRUE)
+use_arcpy()
 library(reticulate)
 ```
 
 
 ```
-## Connected to ArcGISPro version 2.5.1 (build 22081).
+## Connected to ArcGISPro version 3.0.2 (build 36056)
 ```
 
 
@@ -118,7 +118,7 @@ arcpy$Describe(fc)$extent$YMin
 ```
 
 ```
-## 
+## <Result ''>
 ## [1] -13854775
 ## [1] 3837931
 ```
@@ -160,7 +160,7 @@ arcpy$Describe(fc)$extent$YMin
 ```
 
 ```
-## 
+## <Result ''>
 ## [1] -13471139
 ## [1] 4787916
 ```

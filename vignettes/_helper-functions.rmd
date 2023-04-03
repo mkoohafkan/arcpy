@@ -20,10 +20,16 @@ of the California County Boundaries shapefile (available on https://data.ca.gov)
 A copy of this file is included with the `arcpy` package.
 
 
-```{r}
+```{r, eval = FALSE}
 library(arcpy)
-use_ArcGIS(pro = TRUE)
+use_arcpy()
+```
 
+```{r, echo = FALSE}
+use_arcpy()
+```
+
+```{r}
 # set workspace
 arcpy$env$workspace = tempdir()
 arcpy$env$scratchWorkspace = tempdir()

@@ -17,11 +17,11 @@ some temporary rasters.
 
 ```{r eval = FALSE}
 library(arcpy)
-use_ArcGIS(pro = TRUE)
+use_arcpy()
 ```
 
 ```{r echo = FALSE}
-use_ArcGIS(pro = TRUE)
+use_arcpy()
 ```
 
 ```{r}

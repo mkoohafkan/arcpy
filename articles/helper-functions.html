@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Michael
 Koohafkan</h4>
             
-            <h4 data-toc-skip class="date">2020-08-05</h4>
+            <h4 data-toc-skip class="date">2023-04-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mkoohafkan/arcpy/blob/HEAD/vignettes/helper-functions.rmd" class="external-link"><code>vignettes/helper-functions.rmd</code></a></small>
       <div class="hidden name"><code>helper-functions.rmd</code></div>
@@ -107,8 +107,8 @@ copy of the California County Boundaries shapefile (available on <a href="https:
 of this file is included with the <code>arcpy</code> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/use_ArcGIS.html">use_ArcGIS</a></span><span class="op">(</span>pro <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Connected to ArcGISPro version 2.5.1 (build 22081).</span></span></code></pre>
+<span><span class="fu"><a href="../reference/use_arcpy.html">use_arcpy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Connected to ArcGISPro version 3.0.2 (build 36056)</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set workspace</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -133,8 +133,7 @@ of this file is included with the <code>arcpy</code> package.</p>
 list columns.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/da_read.html">da_read</a></span><span class="op">(</span><span class="va">fc</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OID@"</span>, <span class="st">"NAME"</span>, <span class="st">"SHAPE@TRUECENTROID"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Loading required namespace: tibble</span></span></code></pre>
-<pre><code><span><span class="co">## # A tibble: 58 x 3</span></span>
+<pre><code><span><span class="co">## # A tibble: 58 × 3</span></span>
 <span><span class="co">##    `OID@` NAME          `SHAPE@TRUECENTROID`</span></span>
 <span><span class="co">##     &lt;int&gt; &lt;chr&gt;         &lt;list&gt;              </span></span>
 <span><span class="co">##  1      0 Sierra        &lt;list [2]&gt;          </span></span>
@@ -147,9 +146,9 @@ list columns.</p>
 <span><span class="co">##  8      7 Kings         &lt;list [2]&gt;          </span></span>
 <span><span class="co">##  9      8 San Diego     &lt;list [2]&gt;          </span></span>
 <span><span class="co">## 10      9 Placer        &lt;list [2]&gt;          </span></span>
-<span><span class="co">## # ... with 48 more rows</span></span></code></pre>
+<span><span class="co">## # … with 48 more rows</span></span></code></pre>
 <p>You can use <code>da_update</code> to modify attributes.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="../reference/da_read.html">da_read</a></span><span class="op">(</span><span class="va">fc</span>, fields <span class="op">=</span> <span class="st">"NAME"</span><span class="op">)</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="st">"NAME"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">NAME</span>, <span class="st">"County, CA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/da_update.html">da_update</a></span><span class="op">(</span><span class="va">fc</span>, <span class="va">d</span><span class="op">)</span></span>
@@ -164,7 +163,7 @@ list columns.</p>
 <span><span class="co">## 6   Los Angeles County, CA</span></span></code></pre>
 <p>You can also use <code>da_update</code> to add additional fields to a
 table, provided you create the field first.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="../reference/da_read.html">da_read</a></span><span class="op">(</span><span class="va">fc</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ALAND"</span>, <span class="st">"AWATER"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="st">"FRACLAND"</span><span class="op">]</span> <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">ALAND</span> <span class="op">/</span> <span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">ALAND</span> <span class="op">+</span> <span class="va">d</span><span class="op">$</span><span class="va">AWATER</span><span class="op">)</span></span>
 <span></span>
@@ -172,7 +171,7 @@ table, provided you create the field first.</p>
 <span><span class="fu"><a href="../reference/da_update.html">da_update</a></span><span class="op">(</span><span class="va">fc</span>, <span class="va">d</span><span class="op">[</span><span class="st">"FRACLAND"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>You can use <code>da_drop</code> and <code>da_insert</code> to remove
 and add rows, respectively.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="../reference/da_read.html">da_read</a></span><span class="op">(</span><span class="va">fc</span><span class="op">)</span></span>
 <span><span class="co"># extract second row</span></span>
 <span><span class="va">new.d</span> <span class="op">=</span> <span class="va">d</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span></span>
@@ -182,17 +181,18 @@ and add rows, respectively.</p>
 <span><span class="fu"><a href="../reference/da_insert.html">da_insert</a></span><span class="op">(</span><span class="va">fc</span>, <span class="va">new.d</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/da_read.html">da_read</a></span><span class="op">(</span><span class="va">fc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 6 x 20</span></span>
-<span><span class="co">##     FID Shape STATEFP COUNTYFP COUNTYNS GEOID NAME  NAMELSAD LSAD  CLASSFP MTFCC CSAFP CBSAFP METDIVFP</span></span>
-<span><span class="co">##   &lt;int&gt; &lt;lis&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   </span></span>
-<span><span class="co">## 1     0 &lt;lis~ 06      091      00277310 06091 Sier~ Sierra ~ 06    H1      G4020 " "   " "    " "     </span></span>
-<span><span class="co">## 2     1 &lt;lis~ 06      083      00277306 06083 Sant~ Santa B~ 06    H1      G4020 " "   "4220~ " "     </span></span>
-<span><span class="co">## 3     2 &lt;lis~ 06      009      01675885 06009 Cala~ Calaver~ 06    H1      G4020 " "   " "    " "     </span></span>
-<span><span class="co">## 4     3 &lt;lis~ 06      111      00277320 06111 Vent~ Ventura~ 06    H1      G4020 "348" "3710~ " "     </span></span>
-<span><span class="co">## 5     4 &lt;lis~ 06      037      00277283 06037 Los ~ Los Ang~ 06    H1      G4020 "348" "3108~ "31084" </span></span>
-<span><span class="co">## 6     5 &lt;lis~ 06      097      01657246 06097 Sono~ Sonoma ~ 06    H1      G4020 "488" "4222~ " "     </span></span>
-<span><span class="co">## # ... with 6 more variables: FUNCSTAT &lt;chr&gt;, ALAND &lt;dbl&gt;, AWATER &lt;dbl&gt;, INTPTLAT &lt;chr&gt;, INTPTLON &lt;chr&gt;,</span></span>
-<span><span class="co">## #   FRACLAND &lt;dbl&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 6 × 20</span></span>
+<span><span class="co">##     FID Shape  STATEFP COUNTYFP COUNTYNS GEOID NAME  NAMEL…¹ LSAD  CLASSFP MTFCC</span></span>
+<span><span class="co">##   &lt;int&gt; &lt;list&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">## 1     0 &lt;list&gt; 06      091      00277310 06091 Sier… Sierra… 06    H1      G4020</span></span>
+<span><span class="co">## 2     1 &lt;list&gt; 06      083      00277306 06083 Sant… Santa … 06    H1      G4020</span></span>
+<span><span class="co">## 3     2 &lt;list&gt; 06      009      01675885 06009 Cala… Calave… 06    H1      G4020</span></span>
+<span><span class="co">## 4     3 &lt;list&gt; 06      111      00277320 06111 Vent… Ventur… 06    H1      G4020</span></span>
+<span><span class="co">## 5     4 &lt;list&gt; 06      037      00277283 06037 Los … Los An… 06    H1      G4020</span></span>
+<span><span class="co">## 6     5 &lt;list&gt; 06      097      01657246 06097 Sono… Sonoma… 06    H1      G4020</span></span>
+<span><span class="co">## # … with 9 more variables: CSAFP &lt;chr&gt;, CBSAFP &lt;chr&gt;, METDIVFP &lt;chr&gt;,</span></span>
+<span><span class="co">## #   FUNCSTAT &lt;chr&gt;, ALAND &lt;dbl&gt;, AWATER &lt;dbl&gt;, INTPTLAT &lt;chr&gt;, INTPTLON &lt;chr&gt;,</span></span>
+<span><span class="co">## #   FRACLAND &lt;dbl&gt;, and abbreviated variable name ¹​NAMELSAD</span></span></code></pre>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

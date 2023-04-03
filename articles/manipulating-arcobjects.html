@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Michael
 Koohafkan</h4>
             
-            <h4 data-toc-skip class="date">2020-08-05</h4>
+            <h4 data-toc-skip class="date">2023-04-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mkoohafkan/arcpy/blob/HEAD/vignettes/manipulating-arcobjects.rmd" class="external-link"><code>vignettes/manipulating-arcobjects.rmd</code></a></small>
       <div class="hidden name"><code>manipulating-arcobjects.rmd</code></div>
@@ -108,9 +108,9 @@ demonstrates an approach to manipulating the <code>arcobjects</code>
 class instances.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/use_ArcGIS.html">use_ArcGIS</a></span><span class="op">(</span>pro <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/use_arcpy.html">use_arcpy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/" class="external-link">reticulate</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Connected to ArcGISPro version 2.5.1 (build 22081).</span></span></code></pre>
+<pre><code><span><span class="co">## Connected to ArcGISPro version 3.0.2 (build 36056)</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set workspace</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -181,7 +181,7 @@ over the polygons.</p>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">management</span><span class="op">$</span><span class="fu">RecalculateFeatureClassExtent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">fc</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="fu">Describe</span><span class="op">(</span><span class="va">fc</span><span class="op">)</span><span class="op">$</span><span class="va">extent</span><span class="op">$</span><span class="va">XMin</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="fu">Describe</span><span class="op">(</span><span class="va">fc</span><span class="op">)</span><span class="op">$</span><span class="va">extent</span><span class="op">$</span><span class="va">YMin</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
+<pre><code><span><span class="co">## &lt;Result ''&gt;</span></span>
 <span><span class="co">## [1] -13854775</span></span>
 <span><span class="co">## [1] 3837931</span></span></code></pre>
 <p>It’s also possible to mix and match iterators and R functions, often
@@ -216,7 +216,7 @@ and <code><a href="../reference/da_update.html">da_update()</a></code> functions
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">management</span><span class="op">$</span><span class="fu">RecalculateFeatureClassExtent</span><span class="op">(</span><span class="va">fc</span><span class="op">)</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="fu">Describe</span><span class="op">(</span><span class="va">fc</span><span class="op">)</span><span class="op">$</span><span class="va">extent</span><span class="op">$</span><span class="va">XMin</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="fu">Describe</span><span class="op">(</span><span class="va">fc</span><span class="op">)</span><span class="op">$</span><span class="va">extent</span><span class="op">$</span><span class="va">YMin</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
+<pre><code><span><span class="co">## &lt;Result ''&gt;</span></span>
 <span><span class="co">## [1] -13471139</span></span>
 <span><span class="co">## [1] 4787916</span></span></code></pre>
 <p>Handling python objects can be challenging in some cases, but

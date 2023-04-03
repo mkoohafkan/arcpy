@@ -85,23 +85,18 @@ ArcGIS geoprocessor. See the vignettes to get started.</p>
     <div id="details">
     <h2>Details</h2>
     <p><code>arcpy</code> uses the following <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> to configure behavior:</p>
-<ul><li><p><code>arcpy.pro</code>: (Logical) use ArcGIS Pro by default.</p></li>
-<li><p><code>arcpy.installpath</code>: (Character) The default install path
-of ArcGIS Pro.</p></li>
-<li><p><code>arcpy.condaenv</code>: (Character) The default path to the
-ArcGIS Pro Conda environment.</p></li>
-<li><p><code>arcpy.pythonpath</code>: (Character) The default path to the
-ArcGIS Desktop Python installation.</p></li>
+<ul><li><p><code>arcpy.env</code>: The name of an ArcGIS conda environment, or the
+path to an ArcGIS Desktop Python binary.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="use_ArcGIS.html">use_ArcGIS</a></code>, <code><a href="RasterAlgebra.html">RasterAlgebra</a></code></p></div>
+    <div class="dont-index"><p><code><a href="use_arcpy.html">use_arcpy</a></code>, <code><a href="RasterAlgebra.html">RasterAlgebra</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="use_ArcGIS.html">use_ArcGIS</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="use_arcpy.html">use_arcpy</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">arcpy</span><span class="op">$</span><span class="fu">GetInstallInfo</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mygis</span> <span class="op">=</span> <span class="va">arcgis</span><span class="op">$</span><span class="va">gis</span><span class="op">$</span><span class="fu">GIS</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

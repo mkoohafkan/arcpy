@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Michael
 Koohafkan</h4>
             
-            <h4 data-toc-skip class="date">2020-08-05</h4>
+            <h4 data-toc-skip class="date">2023-04-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mkoohafkan/arcpy/blob/HEAD/vignettes/quickstart.rmd" class="external-link"><code>vignettes/quickstart.rmd</code></a></small>
       <div class="hidden name"><code>quickstart.rmd</code></div>
@@ -99,31 +99,36 @@ Koohafkan</h4>
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Getting started with <code>arcpy</code> in R is easy. Use the
-<code><a href="../reference/use_ArcGIS.html">use_ArcGIS()</a></code> function to connect to an ArcGIS installation.
-If you don’t specify a path, <code>arcpy</code> will search in the
-standard installation folders. ArcGIS Desktop provides a stand-alone
-python installation while ArcGIS Pro provides support for Conda virtual
-environments.</p>
+<p>Getting started with <code>arcpy</code> in R is easy. If you’re using
+ArcGIS Pro, you’ll first need to create a Conda environment that will
+link to your ArcGIS Pro install. For example, here’s how you would
+create a Conda environment to link to an ArcGIS Pro 3.0 install (note
+that ArcGIS Pro 3.0 uses Python 3.9).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span></code></pre></div>
-<p>The <code>arcpy</code> package can look for ArcGIS installations in
-their default locations.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/create_arcpy_env.html">create_arcpy_env</a></span><span class="op">(</span><span class="st">"r-arcpy"</span>, arcgis_version <span class="op">=</span> <span class="st">"3.0"</span>, python_version <span class="op">=</span> <span class="st">"3.9"</span><span class="op">)</span></span></code></pre></div>
+<p>There is no good way for R to query the installed version of ArcGIS
+Pro, or to get the Python version that the ArcGIS Pro install uses, so
+you’ll have to provide this info.</p>
+<p>Once you’ve created the environment, you can call
+<code><a href="../reference/use_arcpy.html">use_arcpy()</a></code> to connect to that environment.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Search for the default ArcGIS Pro Conda Python 3.x environment</span></span>
-<span><span class="fu"><a href="../reference/find_ArcGIS.html">find_ArcGIS</a></span><span class="op">(</span>pro <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "C:/Users/mkoohafk/AppData/Local/ESRI/conda/envs/arcgispro-py3-clone"</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># use the default ArcGIS Pro Conda Python 3.x environment</span></span>
-<span><span class="fu"><a href="../reference/use_ArcGIS.html">use_ArcGIS</a></span><span class="op">(</span>pro <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Connected to ArcGISPro version 2.5.1 (build 22081).</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/use_arcpy.html">use_arcpy</a></span><span class="op">(</span><span class="st">"r-arcpy"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Connected to ArcGISPro version 3.0.2 (build 36056)</span></span></code></pre>
+<p>If you are using ArcGIS Desktop, you’ll need to pass the path to the
+ArcGIS Desktop Python Binaries instead of a Conda environment name. You
+can set the default Conda environment/binary path via the option
+<code>arcpy.env</code> in your .Rprofile.</p>
+<pre><code><span><span class="op">{</span><span class="va">r</span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>arcpy.env <span class="op">=</span> <span class="st">"r-arcpy"</span><span class="op">)</span></span></code></pre>
 <p>The <code>arcpy</code> package automatically provides a
 <code>reticulate</code> module object called <code>arcpy</code>. This
 object provides the interface to ArcGIS.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arcpy</span></span></code></pre></div>
 <pre><code><span><span class="co">## Module(arcpy)</span></span></code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arcpy</span><span class="op">$</span><span class="fu">GetInstallInfo</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">ProductName</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "ArcGISPro"</span></span></code></pre>
 <p>Once you are connected to your ArcGIS installation, using
@@ -131,14 +136,14 @@ object provides the interface to ArcGIS.</p>
 other Python module via <code>reticulate</code>. The <code>arcpy</code>
 pacakge also re-exports reticulate’s <code>py_help</code> function so
 that you can access the <code>arcpy</code> documentation.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get and set the arcpy environment</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "C:\\Users\\mkoohafk\\AppData\\Local\\Temp\\Rtmp6ZWhiE"</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># get help on arcpy functions</span></span>
+<span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span></span>
+<span></span>
+<span><span class="co"># get help on arcpy functions</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_help.html" class="external-link">py_help</a></span><span class="op">(</span><span class="va">arcpy</span><span class="op">$</span><span class="va">Exists</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "C:/Temp\\RtmpSMufq6"</span></span></code></pre>
 <p>Happy scripting!</p>
   </div>
 

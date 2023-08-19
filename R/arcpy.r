@@ -10,7 +10,7 @@
 #' @aliases arcpy
 #' @docType package
 #' @md
-#' @seealso [install_arcpy()], [RasterAlgebra]
+#' @seealso [install_arcpy()]
 NULL
 
 

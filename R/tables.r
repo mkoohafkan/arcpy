@@ -48,6 +48,7 @@ da_fields = function(table.path) {
 #'   geometry value as a text string.
 #' * SHAPE@AREA A double of the feature 's area.
 #' * SHAPE@LENGTH A double of the feature' s length.
+#'
 #' @keywords internal
 tokens = c("OID@", "SHAPE@", "SHAPE@XY", "SHAPE@TRUECENTROID",
     "SHAPE@X", "SHAPE@Y", "SHAPE@Z", "SHAPE@M", "SHAPE@JSON",

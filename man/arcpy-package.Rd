@@ -13,5 +13,5 @@ accessing the ArcGIS geoprocessor.
 See the vignettes to get started.
 }
 \seealso{
-\code{\link[=install_arcpy]{install_arcpy()}}, \link{RasterAlgebra}
+\code{\link[=install_arcpy]{install_arcpy()}}
 }

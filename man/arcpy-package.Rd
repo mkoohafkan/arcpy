@@ -5,12 +5,6 @@
 \alias{arcpy-package}
 \alias{arcpy}
 \title{Interface to ArcPy}
-\format{
-An object of class \code{python.builtin.module}.
-}
-\usage{
-arcpy
-}
 \description{
 An interface to the ArcGIS \code{arcpy} Python module via the
 R-Python interface provided by \code{reticulate}. Loading the
@@ -25,15 +19,6 @@ ArcGIS geoprocessor. See the vignettes to get started.
 path to an ArcGIS Desktop Python binary.
 }
 }
-\examples{
-\dontrun{
-use_arcpy()
-arcpy$GetInstallInfo()
-mygis = arcgis$gis$GIS()
-}
-
-}
 \seealso{
 \code{\link{use_arcpy}}, \code{\link{RasterAlgebra}}
 }
-\keyword{datasets}

@@ -19,19 +19,6 @@
 #' @seealso \code{\link{use_arcpy}}, \code{\link{RasterAlgebra}}
 NULL
 
-#' @rdname arcpy-package
-#' @format An object of class \code{python.builtin.module}.
-#'
-#' @examples
-#' \dontrun{
-#' use_arcpy()
-#' arcpy$GetInstallInfo()
-#' mygis = arcgis$gis$GIS()
-#' }
-#'
-#' @export
-arcpy = NULL
-
 
 #' @importFrom reticulate py_help
 #' @export

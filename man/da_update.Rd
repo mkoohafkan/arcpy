@@ -17,7 +17,7 @@ of the table.}
 (Invisible) The path to the table, i.e. \code{table.path}.
 }
 \description{
-Update a table (e.g. attribute table of a layer) with the
+Update a table (e.g., attribute table of a layer) with the
 arcpy.da module.
 }
 \examples{

@@ -1,4 +1,4 @@
-#' Find Arcpy
+#' Get Arcpy Version
 #'
 #' Verify the supplied arcpy module version and identify the required
 #' Python version.
@@ -9,7 +9,7 @@
 #'
 #' @importFrom reticulate conda_search
 #' @keywords internal
-find_arcpy = function(version, conda = "auto", channel = "esri", forge = TRUE) {
+arcpy_version = function(version, conda = "auto", channel = "esri", forge = TRUE) {
     version = as.character(version)[1]
     if (is.na(version)) {
       stop("Could not coerce argument 'version' to a valid string.")
@@ -40,13 +40,14 @@ find_arcpy = function(version, conda = "auto", channel = "esri", forge = TRUE) {
 #' Create a Conda environment with the "arcpy" module.
 #'
 #' @inheritParams reticulate::py_install
+#' @inheritParams reticulate::conda_install
 #' @param version Arcpy version to install. Note that the requested
 #'   arcpy version must match your ArcGIS Pro version.
 #' @param extra_packages Additional Python packages to install along with
 #'   arcpy.
 #' @param restart_session Restart R session after installing (note this will
 #'   only occur within RStudio).
-#' @param conda_python_version Pass a string like "3.9" to request that
+#' @param python_version Pass a string like "3.9" to request that
 #'   conda install a specific Python version. Note that the Python
 #'   version must be compatible with the requested arcpy version. If
 #'   `NULL`, the latest compatible Python version will be used.
@@ -54,20 +55,18 @@ find_arcpy = function(version, conda = "auto", channel = "esri", forge = TRUE) {
 #' @param new_env If `TRUE`, any existing Python conda environment
 #'   specified by `envname` is deleted first.
 #'
-#' @param ... other arguments passed to [`reticulate::conda_install()`] or
-#'   [`reticulate::virtualenv_install()`], depending on the `method` used.
+#' @param ... other arguments passed to [`reticulate::conda_install()`].
 #' 
 #' @details The Conda environment must be configured to match the
-#'   ArcGIS Pro version currently installed, and must be recreated when
-#'   ArcGIS Pro is updated.
+#'   ArcGIS Pro version currently installed. If ArcGIS Pro is updated,
+#'   the Conda environment must be recreated.
 #'
 #' @importFrom reticulate conda_remove conda_python py_install
 #' @export
 install_arcpy = function(method = "conda", conda = "auto",
   version = NULL, envname = "r-arcpy", extra_packages = NULL,
-  restart_session = TRUE, conda_python_version = NULL,
-  channel = "esri", forge = TRUE, ...,
-  new_env = identical(envname, "r-arcpy")) {
+  restart_session = TRUE, python_version = NULL, channel = "esri",
+  forge = TRUE, ..., new_env = identical(envname, "r-arcpy")) {
 
   if (isTRUE(new_env)) {
     # remove environment if it exists
@@ -77,16 +76,17 @@ install_arcpy = function(method = "conda", conda = "auto",
         conda_remove(envname, conda = conda)
     }
   }
-  env_versions = find_arcpy(version, conda = conda)
-
-  packages = c(sprintf("arcpy==%s", env_versions$arcpy), extra_packages)
-  python_version = env_versions$python
+  # identify arcpy and python versions
+  env_versions = arcpy_version(version, conda = conda)
+  if (is.null(python_version)) {
+    python_version = env_versions$python
+  }
+  packages = c(sprintf("arcpy==%s", env_versions$arcpy), extra_packages)  
 
   # set pip to FALSE, arcpy installed via Conda
   py_install(packages = packages, envname = envname,
     method = method, conda = conda, python_version = python_version,
-    pip = FALSE, pip_ignore_installed = pip_ignore_installed,
-    channel = channel, forge = forge, ...)
+    pip = FALSE, channel = channel, forge = forge, ...)
 
   message("\nInstallation complete.\n\n")
 
@@ -95,6 +95,5 @@ install_arcpy = function(method = "conda", conda = "auto",
       rstudioapi::hasFun("restartSession"))
     rstudioapi::restartSession()
 
-  invisible(NULL)
-
+  invisible(TRUE)
 }

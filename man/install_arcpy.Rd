@@ -11,7 +11,7 @@ install_arcpy(
   envname = "r-arcpy",
   extra_packages = NULL,
   restart_session = TRUE,
-  conda_python_version = NULL,
+  python_version = NULL,
   channel = "esri",
   forge = TRUE,
   ...,
@@ -42,13 +42,20 @@ arcpy.}
 \item{restart_session}{Restart R session after installing (note this will
 only occur within RStudio).}
 
-\item{conda_python_version}{Pass a string like "3.9" to request that
+\item{python_version}{Pass a string like "3.9" to request that
 conda install a specific Python version. Note that the Python
 version must be compatible with the requested arcpy version. If
 \code{NULL}, the latest compatible Python version will be used.}
 
-\item{...}{other arguments passed to \code{\link[reticulate:conda-tools]{reticulate::conda_install()}} or
-\code{\link[reticulate:virtualenv-tools]{reticulate::virtualenv_install()}}, depending on the \code{method} used.}
+\item{channel}{An optional character vector of conda channels to include.
+When specified, the \code{forge} argument is ignored. If you need to
+specify multiple channels, including the conda forge, you can use
+\verb{c("conda-forge", <other channels>)}.}
+
+\item{forge}{Boolean; include the \href{https://conda-forge.org/}{conda-forge}
+repository?}
+
+\item{...}{other arguments passed to \code{\link[reticulate:conda-tools]{reticulate::conda_install()}}.}
 
 \item{new_env}{If \code{TRUE}, any existing Python conda environment
 specified by \code{envname} is deleted first.}
@@ -58,6 +65,6 @@ Create a Conda environment with the "arcpy" module.
 }
 \details{
 The Conda environment must be configured to match the
-ArcGIS Pro version currently installed, and must be recreated when
-ArcGIS Pro is updated.
+ArcGIS Pro version currently installed. If ArcGIS Pro is updated,
+the Conda environment must be recreated.
 }

@@ -1,22 +1,16 @@
 #' Interface to ArcPy
 #'
-#' An interface to the ArcGIS \code{arcpy} Python module via the
-#' R-Python interface provided by \code{reticulate}. Loading the
-#' packages exposes the `arcpy` python module for accessing the
-#' ArcGIS geoprocessor. See the vignettes to get started.
-#'
-#' \code{arcpy} uses the following [options()] to configure behavior:
-#'
-#' \itemize{
-#'   \item `arcpy.env`: The name of an ArcGIS conda environment, or the
-#'     path to an ArcGIS Desktop Python binary.
-#' }
+#' An interface to the ArcGIS `arcpy` Python module via the
+#' R-Python interface provided by `reticulate`. Loading the
+#' packages exposes the `arcpy` and `arcgis` python modules for
+#' accessing the ArcGIS geoprocessor.
+#' See the vignettes to get started.
 #'
 #' @name arcpy-package
 #' @aliases arcpy
 #' @docType package
 #' @md
-#' @seealso \code{\link{use_arcpy}}, \code{\link{RasterAlgebra}}
+#' @seealso [install_arcpy()], [RasterAlgebra]
 NULL
 
 

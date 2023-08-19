@@ -8,17 +8,10 @@
 \description{
 An interface to the ArcGIS \code{arcpy} Python module via the
 R-Python interface provided by \code{reticulate}. Loading the
-packages exposes the \code{arcpy} python module for accessing the
-ArcGIS geoprocessor. See the vignettes to get started.
-}
-\details{
-\code{arcpy} uses the following \code{\link[=options]{options()}} to configure behavior:
-
-\itemize{
-\item \code{arcpy.env}: The name of an ArcGIS conda environment, or the
-path to an ArcGIS Desktop Python binary.
-}
+packages exposes the \code{arcpy} and \code{arcgis} python modules for
+accessing the ArcGIS geoprocessor.
+See the vignettes to get started.
 }
 \seealso{
-\code{\link{use_arcpy}}, \code{\link{RasterAlgebra}}
+\code{\link[=install_arcpy]{install_arcpy()}}, \link{RasterAlgebra}
 }

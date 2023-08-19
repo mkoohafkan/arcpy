@@ -24,7 +24,7 @@ Read a table (e.g. attribute table of a layer) with the
 }
 \details{
 This implementation may be faster than accessing the
-\code{@data} slot of an object created from \code{rgdal::readOGR}
+\verb{@data} slot of an object created from \code{rgdal::readOGR}
 in cases where there are a very large number of features. An
 additional advantage of \code{da_read} is that it can read
 raster attribute tables and stand-alone tables stored in file

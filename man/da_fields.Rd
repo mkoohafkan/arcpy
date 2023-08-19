@@ -13,7 +13,7 @@ da_fields(table.path)
 A vector of field names.
 }
 \description{
-Read attribute table field names with arcpy.da module.
+Read attribute table field names with `arcpy.da`` module.
 }
 \examples{
 \dontrun{

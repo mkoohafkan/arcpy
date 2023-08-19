@@ -1,6 +1,6 @@
 #' List Attribute Table Fields
 #'
-#' Read attribute table field names with arcpy.da module.
+#' Read attribute table field names with `arcpy.da`` module.
 #'
 #' @param table.path The file path to the table.
 #' @return A vector of field names.
@@ -32,13 +32,13 @@ da_fields = function(table.path) {
 #'
 #' * OID@ The OBJECTID for the feature.
 #' * SHAPE@ A geometry object for the feature.
-#' * SHAPE@XY A tuple of the feature 's centroid x,y coordinates.
+#' * SHAPE@XY A tuple of the feature's centroid x,y coordinates.
 #' * SHAPE@TRUECENTROID A tuple of the feature's true centroid
 #'   x, y coordinates.
-#' * SHAPE@X A double of the feature 's x-coordinate.
-#' * SHAPE@Y A double of the feature' s y - coordinate.
-#' * SHAPE@Z A double of the feature 's z-coordinate.
-#' * SHAPE@M A double of the feature' s m - value.
+#' * SHAPE@X A double of the feature's x-coordinate.
+#' * SHAPE@Y A double of the feature's y - coordinate.
+#' * SHAPE@Z A double of the feature s z-coordinate.
+#' * SHAPE@M A double of the feature's m - value.
 #' * SHAPE@JSON The esri JSON string representing the geometry.
 #' * SHAPE@WKB The well-known binary(WKB) representation for
 #'   OGC geometry. It provides a portable representation of a
@@ -83,16 +83,16 @@ fields_exist = function(table.path, fields) {
 #' @param table.path The file path to the table.
 #' @param fields A vector of field names or column indices to retrieve.
 #' @param simplify If `TRUE`, coerce the results to a data.frame. If
-#'   \code{FALSE}, the results will be returned as a list of lists, with
+#'   `FALSE`, the results will be returned as a list of lists, with
 #'   each top-level element corresponding to one row of the table.
-#' @return a dataframe with columns corresponding to \code{fields}.
+#' @return a dataframe with columns corresponding to `fields`.
 #'
 #' @details This implementation may be faster than accessing the
-#'   \code{@data} slot of an object created from \code{rgdal::readOGR}
+#'   `@data` slot of an object created from `rgdal::readOGR`
 #'   in cases where there are a very large number of features. An
-#'   additional advantage of \code{da_read} is that it can read
+#'   additional advantage of `da_read` is that it can read
 #'   raster attribute tables and stand-alone tables stored in file
-#'   geodatabases, which is not supported by \code{rgdal::readOGR}.
+#'   geodatabases, which is not supported by `rgdal::readOGR`.
 #'
 #' @examples
 #' \dontrun{
@@ -152,14 +152,14 @@ da_read = function(table.path, fields, simplify = TRUE) {
 
 #' Update Table with arcpy.da
 #'
-#' Update a table (e.g. attribute table of a layer) with the
+#' Update a table (e.g., attribute table of a layer) with the
 #' arcpy.da module.
 #'
 #' @param table.path The file path to the table.
-#' @param d The data to write to \code{table.path}, with the same number
+#' @param d The data to write to `table.path`, with the same number
 #'   of rows as the table. Column names must match field names
 #'   of the table.
-#' @return (Invisible) The path to the table, i.e. \code{table.path}.
+#' @return (Invisible) The path to the table, i.e. `table.path`.
 #'
 #' @examples
 #' \dontrun{
@@ -201,10 +201,10 @@ da_update = function(table.path, d) {
 #' with the arcpy.da module.
 #'
 #' @param table.path The file path to the table.
-#' @param d The data to write to \code{table.path}, with the same number
+#' @param d The data to write to `table.path`, with the same number
 #'   of rows as the table. Column names must match field names
 #'   of the table.
-#' @return (Invisible) The path to the table, i.e. \code{table.path}.
+#' @return (Invisible) The path to the table, i.e. `table.path`.
 #'
 #' @examples
 #' \dontrun{
@@ -242,7 +242,7 @@ da_insert = function(table.path, d) {
 #'
 #' @param table.path The file path to the table.
 #' @param rows The row indexes to drop.
-#' @return (Invisible) The path to the table, i.e. \code{table.path}.
+#' @return (Invisible) The path to the table, i.e. `table.path`.
 #'
 #' @examples
 #' \dontrun{

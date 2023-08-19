@@ -23,13 +23,6 @@ instances.
 
 ```{r, eval = FALSE}
 library(arcpy)
-use_arcpy()
-library(reticulate)
-```
-
-```{r, echo = FALSE}
-use_arcpy()
-library(reticulate)
 ```
 
 ```{r}

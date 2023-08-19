@@ -1,5 +1,4 @@
 devtools::load_all()
-use_arcpy()
 
 knitr::knit("vignettes/_quickstart.rmd", "vignettes/quickstart.rmd")
 knitr::knit("vignettes/_helper-functions.rmd", "vignettes/helper-functions.rmd")

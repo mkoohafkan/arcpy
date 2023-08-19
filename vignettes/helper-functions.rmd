@@ -1,7 +1,7 @@
 ---
 title: "Using the helper functions"
 author: "Michael Koohafkan"
-date: "2023-04-02"
+date: "2023-08-19"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Helper Functions}
@@ -23,12 +23,6 @@ A copy of this file is included with the `arcpy` package.
 
 ```r
 library(arcpy)
-use_arcpy()
-```
-
-
-```
-## Connected to ArcGISPro version 3.0.2 (build 36056)
 ```
 
 
@@ -69,6 +63,10 @@ da_read(fc, fields = c("OID@", "NAME", "SHAPE@TRUECENTROID"))
 ```
 
 ```
+## Loading required namespace: tibble
+```
+
+```
 ## # A tibble: 58 × 3
 ##    `OID@` NAME          `SHAPE@TRUECENTROID`
 ##     <int> <chr>         <list>              
@@ -82,7 +80,7 @@ da_read(fc, fields = c("OID@", "NAME", "SHAPE@TRUECENTROID"))
 ##  8      7 Kings         <list [2]>          
 ##  9      8 San Diego     <list [2]>          
 ## 10      9 Placer        <list [2]>          
-## # … with 48 more rows
+## # ℹ 48 more rows
 ```
 
 You can use `da_update` to modify attributes.
@@ -135,17 +133,17 @@ head(da_read(fc))
 
 ```
 ## # A tibble: 6 × 20
-##     FID Shape  STATEFP COUNTYFP COUNTYNS GEOID NAME  NAMEL…¹ LSAD  CLASSFP MTFCC
-##   <int> <list> <chr>   <chr>    <chr>    <chr> <chr> <chr>   <chr> <chr>   <chr>
-## 1     0 <list> 06      091      00277310 06091 Sier… Sierra… 06    H1      G4020
-## 2     1 <list> 06      083      00277306 06083 Sant… Santa … 06    H1      G4020
-## 3     2 <list> 06      009      01675885 06009 Cala… Calave… 06    H1      G4020
-## 4     3 <list> 06      111      00277320 06111 Vent… Ventur… 06    H1      G4020
-## 5     4 <list> 06      037      00277283 06037 Los … Los An… 06    H1      G4020
-## 6     5 <list> 06      097      01657246 06097 Sono… Sonoma… 06    H1      G4020
-## # … with 9 more variables: CSAFP <chr>, CBSAFP <chr>, METDIVFP <chr>,
+##     FID Shape      STATEFP COUNTYFP COUNTYNS GEOID NAME   NAMELSAD LSAD  CLASSFP
+##   <int> <list>     <chr>   <chr>    <chr>    <chr> <chr>  <chr>    <chr> <chr>  
+## 1     0 <list [2]> 06      091      00277310 06091 Sierr… Sierra … 06    H1     
+## 2     1 <list [2]> 06      083      00277306 06083 Santa… Santa B… 06    H1     
+## 3     2 <list [2]> 06      009      01675885 06009 Calav… Calaver… 06    H1     
+## 4     3 <list [2]> 06      111      00277320 06111 Ventu… Ventura… 06    H1     
+## 5     4 <list [2]> 06      037      00277283 06037 Los A… Los Ang… 06    H1     
+## 6     5 <list [2]> 06      097      01657246 06097 Sonom… Sonoma … 06    H1     
+## # ℹ 10 more variables: MTFCC <chr>, CSAFP <chr>, CBSAFP <chr>, METDIVFP <chr>,
 ## #   FUNCSTAT <chr>, ALAND <dbl>, AWATER <dbl>, INTPTLAT <chr>, INTPTLON <chr>,
-## #   FRACLAND <dbl>, and abbreviated variable name ¹​NAMELSAD
+## #   FRACLAND <dbl>
 ```
 
 

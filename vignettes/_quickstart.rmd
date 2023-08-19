@@ -22,34 +22,12 @@ environment to link to an ArcGIS Pro 3.0 install (note that ArcGIS Pro
 ```{r eval = FALSE}
 library(arcpy)
 
-create_arcpy_env("r-arcpy", arcgis_version = "3.0", python_version = "3.9")
+install_arcpy("r-arcpy", arcgis_version = "3.1", python_version = "3.9")
 ```
 
-There is no good way for R to query the installed version of ArcGIS 
-Pro, or to get the Python version that the ArcGIS Pro install uses,
-so you'll have to provide this info.
-
-Once you've created the environment, you can call `use_arcpy()` 
-to connect to that environment.
-
-```{r eval = FALSE}
-use_arcpy("r-arcpy")
-```
-
-```{r echo = FALSE}
-use_arcpy("r-arcpy")
-```
-
-
-If you are using ArcGIS Desktop, you'll need to pass the path to the
-ArcGIS Desktop Python Binaries instead of a Conda environment name.
-You can set the default Conda environment/binary path via the option
-`arcpy.env` in your .Rprofile.
-
-```
-{r}
-options(arcpy.env = "r-arcpy")
-```
+If you don't specify the python version, the package will use the
+latest compatible Python version based on what is reported in the
+arcpy module build.
 
 The `arcpy` package automatically provides a `reticulate` module object 
 called `arcpy`. This object provides the interface to ArcGIS.

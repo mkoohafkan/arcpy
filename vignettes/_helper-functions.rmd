@@ -22,11 +22,6 @@ A copy of this file is included with the `arcpy` package.
 
 ```{r, eval = FALSE}
 library(arcpy)
-use_arcpy()
-```
-
-```{r, echo = FALSE}
-use_arcpy()
 ```
 
 ```{r}

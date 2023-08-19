@@ -1,7 +1,7 @@
 ---
 title: "Raster math with arcpy"
 author: "Michael Koohafkan"
-date: "2023-04-02"
+date: "2023-08-19"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Raster Math}
@@ -9,21 +9,15 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-The `arcpy` package defines methods for working with arcpy `Raster` 
-objects. This is achieved through use of the Python `operator` module
-and simple S3 class definitions. This vignette demonstrates basic usage
-of arcpy Raster Algebra from R. First, we'll set up a workspace and create
-some temporary rasters.
+The `arcpy` package, via
+[`reticulate`](https://cran.r-project.org/package=reticulate),
+supports Raster math operations. This vignette demonstrates basic
+usage of arcpy Raster Algebra from R. First, we'll set up a
+workspace and create some temporary rasters.
 
 
 ```r
 library(arcpy)
-use_arcpy()
-```
-
-
-```
-## Connected to ArcGISPro version 3.0.2 (build 36056)
 ```
 
 
@@ -60,7 +54,7 @@ rather than the
 [Python operator symbology](https://docs.python.org/3.4/library/operator.html#mapping-operators-to-functions)
 or [arcpy operator symbology](http://pro.arcgis.com/en/pro-app/arcpy/spatial-analyst/an-overview-of-the-map-algebra-operators.htm)
 (e.g., Modulus is achieved using `%%`, not `%`, and exponentiation is achieved
-using `^` rather than `pow()`).
+using `^` rather than `pow()` or `**`).
 
 
 ```r
@@ -138,8 +132,7 @@ arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
 
 ## Logical operators
 
-Logical operators work on rasters too, with the exception of 
-`!` (not). This is the same as in Python.
+Logical operators, including compound operations, work on rasters too.
 
 
 ```r
@@ -216,16 +209,17 @@ arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
 ```
 
 ```r
-# this will give an error
+# The not operator works in R too
 raster3 = !(raster2 > 10)
+arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): ValueError: The truth value of a raster is ambiguous. Invalid use of raster with Boolean operator or function. Check the use of parentheses where applicable.
+## <Result '1'>
 ```
 
 ```r
-# Instead, you can do
+# or you can do
 raster3 = arcpy$sa$BooleanNot(raster2 > 10)
 arcpy$management$GetRasterProperties(raster3, "MAXIMUM")
 ```

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">arcpy</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3-0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Michael
 Koohafkan</h4>
             
-            <h4 data-toc-skip class="date">2023-04-02</h4>
+            <h4 data-toc-skip class="date">2023-08-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mkoohafkan/arcpy/blob/HEAD/vignettes/quickstart.rmd" class="external-link"><code>vignettes/quickstart.rmd</code></a></small>
       <div class="hidden name"><code>quickstart.rmd</code></div>
@@ -107,28 +107,17 @@ that ArcGIS Pro 3.0 uses Python 3.9).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">create_arcpy_env</span><span class="op">(</span><span class="st">"r-arcpy"</span>, arcgis_version <span class="op">=</span> <span class="st">"3.0"</span>, python_version <span class="op">=</span> <span class="st">"3.9"</span><span class="op">)</span></span></code></pre></div>
-<p>There is no good way for R to query the installed version of ArcGIS
-Pro, or to get the Python version that the ArcGIS Pro install uses, so
-you’ll have to provide this info.</p>
-<p>Once you’ve created the environment, you can call
-<code>use_arcpy()</code> to connect to that environment.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">use_arcpy</span><span class="op">(</span><span class="st">"r-arcpy"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Connected to ArcGISPro version 3.0.2 (build 36056)</span></span></code></pre>
-<p>If you are using ArcGIS Desktop, you’ll need to pass the path to the
-ArcGIS Desktop Python Binaries instead of a Conda environment name. You
-can set the default Conda environment/binary path via the option
-<code>arcpy.env</code> in your .Rprofile.</p>
-<pre><code><span><span class="op">{</span><span class="va">r</span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>arcpy.env <span class="op">=</span> <span class="st">"r-arcpy"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu"><a href="../reference/install_arcpy.html">install_arcpy</a></span><span class="op">(</span><span class="st">"r-arcpy"</span>, arcgis_version <span class="op">=</span> <span class="st">"3.1"</span>, python_version <span class="op">=</span> <span class="st">"3.9"</span><span class="op">)</span></span></code></pre></div>
+<p>If you don’t specify the python version, the package will use the
+latest compatible Python version based on what is reported in the arcpy
+module build.</p>
 <p>The <code>arcpy</code> package automatically provides a
 <code>reticulate</code> module object called <code>arcpy</code>. This
 object provides the interface to ArcGIS.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arcpy</span></span></code></pre></div>
 <pre><code><span><span class="co">## Module(arcpy)</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arcpy</span><span class="op">$</span><span class="fu">GetInstallInfo</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">ProductName</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "ArcGISPro"</span></span></code></pre>
 <p>Once you are connected to your ArcGIS installation, using
@@ -136,14 +125,14 @@ object provides the interface to ArcGIS.</p>
 other Python module via <code>reticulate</code>. The <code>arcpy</code>
 pacakge also re-exports reticulate’s <code>py_help</code> function so
 that you can access the <code>arcpy</code> documentation.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get and set the arcpy environment</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span></span>
 <span></span>
 <span><span class="co"># get help on arcpy functions</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_help.html" class="external-link">py_help</a></span><span class="op">(</span><span class="va">arcpy</span><span class="op">$</span><span class="va">Exists</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "C:/Temp\\RtmpSMufq6"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "C:/Temp\\RtmpchsEWf"</span></span></code></pre>
 <p>Happy scripting!</p>
   </div>
 

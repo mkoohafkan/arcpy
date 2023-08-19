@@ -1,6 +1,6 @@
 skip_if_no_arcgis = function() {
   skip_on_cran()
-  if (!require_arcpy(quietly = TRUE)) {
+  if (!reticulate::py_module_available("arcpy")) {
     skip("Could not connect to ArcGIS")
   }
 }

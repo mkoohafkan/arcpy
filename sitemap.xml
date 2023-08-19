@@ -28,16 +28,10 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/RasterAlgebra.html</loc>
-  </url>
-  <url>
     <loc>/reference/arcpy-package.html</loc>
   </url>
   <url>
-    <loc>/reference/arcpy_is_loaded.html</loc>
-  </url>
-  <url>
-    <loc>/reference/create_arcpy_env.html</loc>
+    <loc>/reference/arcpy_version.html</loc>
   </url>
   <url>
     <loc>/reference/da_drop.html</loc>
@@ -61,12 +55,12 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/install_arcpy.html</loc>
+  </url>
+  <url>
     <loc>/reference/reexports.html</loc>
   </url>
   <url>
     <loc>/reference/tokens.html</loc>
-  </url>
-  <url>
-    <loc>/reference/use_arcpy.html</loc>
   </url>
 </urlset>

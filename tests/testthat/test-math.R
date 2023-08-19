@@ -30,6 +30,7 @@ test_that("arcpy raster math works", {
   expect_max_equal(raster1 > raster2, 0)
   expect_max_equal(raster1 < raster2, 1)
 
+  expect_max_equal(!(raster1 > 1), 0)
   expect_max_equal((raster1 > raster2) & (raster2 > 2), 0)
   expect_max_equal((raster1 > raster2) | (raster2 > 2), 1)
 

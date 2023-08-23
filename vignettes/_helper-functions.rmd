@@ -1,7 +1,5 @@
 ---
 title: "Using the helper functions"
-author: "Michael Koohafkan"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Helper Functions}

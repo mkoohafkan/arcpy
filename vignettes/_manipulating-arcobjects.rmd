@@ -1,7 +1,5 @@
 ---
 title: "Manipulating arcobjects"
-author: "Michael Koohafkan"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Manipulating ArcObjects}

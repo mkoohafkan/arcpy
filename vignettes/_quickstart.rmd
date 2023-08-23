@@ -1,7 +1,5 @@
 ---
 title: "Quickstart to arcpy"
-author: "Michael Koohafkan"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Quickstart}
@@ -16,13 +14,12 @@ knitr::opts_chunk$set(echo = TRUE)
 Getting started with `arcpy` in R is easy. If you're using ArcGIS Pro,
 you'll first need to create a Conda environment that will link to your
 ArcGIS Pro install. For example, here's how you would create a Conda
-environment to link to an ArcGIS Pro 3.0 install (note that ArcGIS Pro
-3.0 uses Python 3.9).
+environment to link to an ArcGIS Pro 3.1 install.
 
 ```{r eval = FALSE}
 library(arcpy)
 
-install_arcpy("r-arcpy", arcgis_version = "3.1", python_version = "3.9")
+install_arcpy(version = "3.1")
 ```
 
 If you don't specify the python version, the package will use the

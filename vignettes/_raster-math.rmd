@@ -1,7 +1,5 @@
 ---
 title: "Raster math with arcpy"
-author: "Michael Koohafkan"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Raster Math}

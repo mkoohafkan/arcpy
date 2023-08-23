@@ -8,9 +8,6 @@ vignette: >
 ---
 
 
-```r
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Getting started with `arcpy` in R is easy. If you're using ArcGIS Pro,
 you'll first need to create a Conda environment that will link to your
@@ -66,7 +63,7 @@ py_help(arcpy$Exists)
 
 
 ```
-## [1] "C:/Temp\\Rtmp4avBmw"
+## [1] "C:/Temp\\RtmpWIXem4"
 ```
 
 

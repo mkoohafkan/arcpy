@@ -85,10 +85,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quickstart to arcpy</h1>
-                        <h4 data-toc-skip class="author">Michael
-Koohafkan</h4>
             
-            <h4 data-toc-skip class="date">2023-08-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mkoohafkan/arcpy/blob/HEAD/vignettes/quickstart.rmd" class="external-link"><code>vignettes/quickstart.rmd</code></a></small>
       <div class="hidden name"><code>quickstart.rmd</code></div>
@@ -102,12 +99,11 @@ Koohafkan</h4>
 <p>Getting started with <code>arcpy</code> in R is easy. If you’re using
 ArcGIS Pro, you’ll first need to create a Conda environment that will
 link to your ArcGIS Pro install. For example, here’s how you would
-create a Conda environment to link to an ArcGIS Pro 3.0 install (note
-that ArcGIS Pro 3.0 uses Python 3.9).</p>
+create a Conda environment to link to an ArcGIS Pro 3.1 install.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/install_arcpy.html">install_arcpy</a></span><span class="op">(</span><span class="st">"r-arcpy"</span>, arcgis_version <span class="op">=</span> <span class="st">"3.1"</span>, python_version <span class="op">=</span> <span class="st">"3.9"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/install_arcpy.html">install_arcpy</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.1"</span><span class="op">)</span></span></code></pre></div>
 <p>If you don’t specify the python version, the package will use the
 latest compatible Python version based on what is reported in the arcpy
 module build.</p>
@@ -132,7 +128,7 @@ that you can access the <code>arcpy</code> documentation.</p>
 <span></span>
 <span><span class="co"># get help on arcpy functions</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_help.html" class="external-link">py_help</a></span><span class="op">(</span><span class="va">arcpy</span><span class="op">$</span><span class="va">Exists</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "C:/Temp\\RtmpchsEWf"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "C:/Temp\\Rtmp4avBmw"</span></span></code></pre>
 <p>Happy scripting!</p>
   </div>
 

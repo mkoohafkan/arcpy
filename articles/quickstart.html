@@ -94,20 +94,26 @@
 
     
     
-<p>Getting started with <code>arcpy</code> in R is easy. If you’re using
-ArcGIS Pro, you’ll first need to create a Conda environment that will
-link to your ArcGIS Pro install. For example, here’s how you would
-create a Conda environment to link to an ArcGIS Pro 3.1 install.</p>
+<p>Getting started with <a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a> in R is easy. If you’re
+using ArcGIS Pro, you’ll first need to create a Conda environment that
+will link to your ArcGIS Pro install. If you’re not familiar with Conda
+or the <a href="https://cran.r-project.org/package=reticulate" class="external-link"><code>reticulate</code></a>
+package, check the vignettes <a href="https://rstudio.github.io/reticulate/articles/calling_python.html" class="external-link">Calling
+Python from R</a> and <a href="https://rstudio.github.io/reticulate/articles/versions.html" class="external-link">Python
+Version Configuration</a>.</p>
+<p>For example, here’s how you would create a Conda environment to link
+to an ArcGIS Pro 3.1 install.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/install_arcpy.html">install_arcpy</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.1"</span><span class="op">)</span></span></code></pre></div>
 <p>If you don’t specify the python version, the package will use the
 latest compatible Python version based on what is reported in the arcpy
-module build.</p>
-<p>The <code>arcpy</code> package automatically provides a
-<code>reticulate</code> module object called <code>arcpy</code>. This
-object provides the interface to ArcGIS.</p>
+module build. By default, the package creates a new environment named
+“r-arcpy”, but this can be overridden.</p>
+<p><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a> automatically provides a <code>reticulate</code>
+module object called <code>arcpy</code>. This object provides the
+interface to ArcGIS.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arcpy</span></span></code></pre></div>
 <pre><code><span><span class="co">## Module(arcpy)</span></span></code></pre>
@@ -116,17 +122,18 @@ object provides the interface to ArcGIS.</p>
 <pre><code><span><span class="co">## [1] "ArcGISPro"</span></span></code></pre>
 <p>Once you are connected to your ArcGIS installation, using
 <code>arcpy</code> functions and classes is as seamless as using any
-other Python module via <code>reticulate</code>. The <code>arcpy</code>
-pacakge also re-exports reticulate’s <code>py_help</code> function so
-that you can access the <code>arcpy</code> documentation.</p>
+other Python module via <code>reticulate</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get and set the arcpy environment</span></span>
 <span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span></span>
-<span></span>
-<span><span class="co"># get help on arcpy functions</span></span>
+<span><span class="va">arcpy</span><span class="op">$</span><span class="va">env</span><span class="op">$</span><span class="va">workspace</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "C:\\Temp\\1\\RtmpGWDuu8"</span></span></code></pre>
+<p><a href="https://github.com/mkoohafkan/arcpy" class="external-link">arcpy</a> also re-exports reticulate’s
+<code>py_help</code> function so that you can access the
+<code>arcpy</code> documentation.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># get help on arcpy functions</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_help.html" class="external-link">py_help</a></span><span class="op">(</span><span class="va">arcpy</span><span class="op">$</span><span class="va">Exists</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "C:/Temp\\RtmpWIXem4"</span></span></code></pre>
 <p>Happy scripting!</p>
   </div>
 

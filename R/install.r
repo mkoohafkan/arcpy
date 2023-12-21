@@ -8,7 +8,7 @@
 #' @return A named list providing version numbers of arcpy and Python.
 #'
 #' @importFrom reticulate conda_search
-#' @keywords internal
+#' @export
 arcpy_version = function(version, conda = "auto", channel = "esri", forge = TRUE) {
     version = as.character(version)[1]
     if (is.na(version)) {
@@ -51,12 +51,12 @@ arcpy_version = function(version, conda = "auto", channel = "esri", forge = TRUE
 #'   conda install a specific Python version. Note that the Python
 #'   version must be compatible with the requested arcpy version. If
 #'   `NULL`, the latest compatible Python version will be used.
-#' 
+#'
 #' @param new_env If `TRUE`, any existing Python conda environment
 #'   specified by `envname` is deleted first.
 #'
 #' @param ... other arguments passed to [`reticulate::conda_install()`].
-#' 
+#'
 #' @details The Conda environment must be configured to match the
 #'   ArcGIS Pro version currently installed. If ArcGIS Pro is updated,
 #'   the Conda environment must be recreated.
@@ -68,6 +68,9 @@ install_arcpy = function(method = "conda", conda = "auto",
   restart_session = TRUE, python_version = NULL, channel = "esri",
   forge = TRUE, ..., new_env = identical(envname, "r-arcpy")) {
 
+  if (is.null(version)) {
+    stop("Must provide the ArcGIS Pro version.")
+  }
   if (isTRUE(new_env)) {
     # remove environment if it exists
     if (method %in% c("auto", "conda")) {

@@ -13,8 +13,9 @@ URL: https://github.com/mkoohafkan/arcpy,
     http://hydroecology.net/arcpy/
 BugReports: https://github.com/mkoohafkan/arcpy/issues
 SystemRequirements: 
-    ArcGIS Pro (>= 2.5) or ArcGIS Desktop (>= 10.2) with Background Geoprocessing (64-bit).
-Depends: R (>= 3.5)
+    Conda (>=4.6),
+    ArcGIS Pro (>= 3.0)
+Depends: R (>= 4.3)
 Imports: 
     stats,
     reticulate (>= 1.31)

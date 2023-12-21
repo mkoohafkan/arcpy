@@ -11,9 +11,15 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Getting started with `arcpy` in R is easy. If you're using ArcGIS Pro,
+Getting started with `{arcpy}` in R is easy. If you're using ArcGIS Pro,
 you'll first need to create a Conda environment that will link to your
-ArcGIS Pro install. For example, here's how you would create a Conda
+ArcGIS Pro install. If you're not familiar with Conda or the
+[`reticulate`](https://cran.r-project.org/package=reticulate)
+package, check the vignettes
+[Calling Python from R](https://rstudio.github.io/reticulate/articles/calling_python.html) and
+[Python Version Configuration](https://rstudio.github.io/reticulate/articles/versions.html).
+
+For example, here's how you would create a Conda
 environment to link to an ArcGIS Pro 3.1 install.
 
 ```{r eval = FALSE}
@@ -24,9 +30,10 @@ install_arcpy(version = "3.1")
 
 If you don't specify the python version, the package will use the
 latest compatible Python version based on what is reported in the
-arcpy module build.
+arcpy module build. By default, the package creates a new environment
+named "r-arcpy", but this can be overridden.
 
-The `arcpy` package automatically provides a `reticulate` module object 
+`{arcpy}` automatically provides a `reticulate` module object 
 called `arcpy`. This object provides the interface to ArcGIS.
 
 ```{r}
@@ -36,24 +43,19 @@ arcpy$GetInstallInfo()$ProductName
 
 Once you are connected to your ArcGIS installation, using `arcpy` functions
 and classes is as seamless as using any other Python module via `reticulate`.
-The `arcpy` pacakge also re-exports reticulate's `py_help` function so that 
-you can access the `arcpy` documentation.
 
-
-```{r eval = FALSE}
+```{r}
 # get and set the arcpy environment
 arcpy$env$workspace = tempdir()
 arcpy$env$workspace
+```
 
+`{arcpy}` also re-exports reticulate's `py_help` function so that 
+you can access the `arcpy` documentation.
+
+```{r}
 # get help on arcpy functions
 py_help(arcpy$Exists)
 ```
-
-```{r echo = FALSE}
-# get and set the arcpy environment
-arcpy$env$workspace = tempdir()
-arcpy$env$workspace
-```
-
 
 Happy scripting!

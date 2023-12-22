@@ -189,7 +189,7 @@ da_update = function(table.path, d) {
         break
       }
       i = i + 1L
-      cursor$updateRow(lapply(1L:ncol(d), function(j) d[[j]][[i]]))
+      cursor$updateRow(lapply(seq_len(ncol(d)), function(j) d[[j]][[i]]))
     }
   })
   invisible(table.path)
@@ -228,8 +228,8 @@ da_insert = function(table.path, d) {
   fields = names(d)
   fields_exist(table.path, fields)
   with(arcpy$da$InsertCursor(table.path, fields) %as% cursor, {
-    for (i in 1L:nrow(d)) {
-      cursor$insertRow(lapply(1L:ncol(d), function(j) d[[j]][[i]]))
+    for (i in seq_len(nrow(d))) {
+      cursor$insertRow(lapply(seq_len(ncol(d)), function(j) d[[j]][[i]]))
     }
   })
   invisible(table.path)

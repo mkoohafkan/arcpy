@@ -15,7 +15,7 @@ BugReports: https://github.com/mkoohafkan/arcpy/issues
 SystemRequirements: 
     Conda (>=4.6),
     ArcGIS Pro (>= 3.0)
-Depends: R (>= 4.3)
+Depends: R (>= 4.2)
 Imports: 
     stats,
     reticulate (>= 1.31)

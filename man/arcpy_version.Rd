@@ -28,4 +28,3 @@ A named list providing version numbers of arcpy and Python.
 Verify the supplied arcpy module version and identify the required
 Python version.
 }
-\keyword{internal}

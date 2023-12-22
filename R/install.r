@@ -10,28 +10,28 @@
 #' @importFrom reticulate conda_search
 #' @export
 arcpy_version = function(version, conda = "auto", channel = "esri", forge = TRUE) {
-    version = as.character(version)[1]
-    if (is.na(version)) {
-      stop("Could not coerce argument 'version' to a valid string.")
-    }
-    arcpy_available = conda_search("arcpy", forge = forge,
-      channel = channel, conda = conda)
-    # get all modules matching specified version
-    arcpy_selected = arcpy_available[arcpy_available$version == version,]
-    if (nrow(arcpy_selected) < 1L) {
-        stop("No arcpy module matching version ", version, " found.")
-    }
-    # get latest build
-    arcpy_selected = arcpy_selected[order(arcpy_selected$build),]
-    arcpy_selected = arcpy_selected[nrow(arcpy_selected),]
-    arcpy_version = arcpy_selected$version
-    # get python version
-    arcpy_build = arcpy_selected$build
-    python_version = regmatches(arcpy_build,
-      regexpr("(?<=py)([0-9]{2})(?=_arcgispro_[0-9]+)",
-      arcpy_build, perl = TRUE))
-    python_version = gsub("([0-9]{1})([0-9]{1})", "\\1.\\2", python_version)
-    list(arcpy = arcpy_version, python = python_version)
+  version = as.character(version)[1]
+  if (is.na(version)) {
+    stop("Could not coerce argument 'version' to a valid string.")
+  }
+  arcpy_available = conda_search("arcpy", forge = forge,
+    channel = channel, conda = conda)
+  # get all modules matching specified version
+  arcpy_selected = arcpy_available[arcpy_available$version == version,]
+  if (nrow(arcpy_selected) < 1L) {
+      stop("No arcpy module matching version ", version, " found.")
+  }
+  # get latest build
+  arcpy_selected = arcpy_selected[order(arcpy_selected$build),]
+  arcpy_selected = arcpy_selected[nrow(arcpy_selected),]
+  arcpy_version = arcpy_selected$version
+  # get python version
+  arcpy_build = arcpy_selected$build
+  python_version = regmatches(arcpy_build,
+    regexpr("(?<=py)([0-9]{2})(?=_arcgispro_[0-9]+)",
+    arcpy_build, perl = TRUE))
+  python_version = gsub("([0-9]{1})([0-9]{1})", "\\1.\\2", python_version)
+  list(arcpy = arcpy_version, python = python_version)
 }
 
 
@@ -51,7 +51,6 @@ arcpy_version = function(version, conda = "auto", channel = "esri", forge = TRUE
 #'   conda install a specific Python version. Note that the Python
 #'   version must be compatible with the requested arcpy version. If
 #'   `NULL`, the latest compatible Python version will be used.
-#'
 #' @param new_env If `TRUE`, any existing Python conda environment
 #'   specified by `envname` is deleted first.
 #'

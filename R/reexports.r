@@ -20,3 +20,7 @@ reticulate::`%as%`
 #' @importFrom reticulate use_condaenv
 #' @export
 reticulate::use_condaenv
+
+#' @importFrom reticulate py_help
+#' @export
+reticulate::py_help

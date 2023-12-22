@@ -12,8 +12,3 @@
 #' @md
 #' @seealso [install_arcpy()]
 NULL
-
-
-#' @importFrom reticulate py_help
-#' @export
-reticulate::py_help

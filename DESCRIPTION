@@ -7,8 +7,6 @@ Authors@R:
            role = c("aut", "cre"),
            email = "michael.koohafkan@gmail.com")
 Description: An interface to the ArcGIS "arcpy" module using reticulate.
-    This package is in early development and needs more testing! Report
-    bugs to theGitHub Issue Tracker.
 URL: https://github.com/mkoohafkan/arcpy,
     http://hydroecology.net/arcpy/
 BugReports: https://github.com/mkoohafkan/arcpy/issues

@@ -1,4 +1,4 @@
-# `{arcpy}`: R Interface to ArcGIS Geoprocessing Tools
+# arcpy: R Interface to ArcGIS Geoprocessing Tools
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/arcpy)](http://cran.r-project.org/package=arcpy)

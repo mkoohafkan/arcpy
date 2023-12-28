@@ -8,7 +8,7 @@
 
 An R interface for the ArcGIS Python module
 [`arcpy`](https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/what-is-arcpy-.htm)
-via [`{reticulate}``](https://cran.r-project.org/package=reticulate).
+via [`{reticulate}`](https://cran.r-project.org/package=reticulate).
 
 ## Requirements
 

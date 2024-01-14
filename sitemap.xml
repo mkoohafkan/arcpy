@@ -52,6 +52,12 @@
     <loc>/reference/da_update.html</loc>
   </url>
   <url>
+    <loc>/reference/feature_from_arcpy.html</loc>
+  </url>
+  <url>
+    <loc>/reference/feature_to_arcpy.html</loc>
+  </url>
+  <url>
     <loc>/reference/fields_exist.html</loc>
   </url>
   <url>
@@ -61,7 +67,16 @@
     <loc>/reference/install_arcpy.html</loc>
   </url>
   <url>
+    <loc>/reference/raster_from_arcpy.html</loc>
+  </url>
+  <url>
+    <loc>/reference/raster_to_arcpy.html</loc>
+  </url>
+  <url>
     <loc>/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>/reference/to_arcpy.html</loc>
   </url>
   <url>
     <loc>/reference/tokens.html</loc>

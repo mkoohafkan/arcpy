@@ -1,6 +1,6 @@
 Package: arcpy
 Title: Interface to the ArcGIS "arcpy" python module
-Version: 0.3-0
+Version: 0.4-0
 Authors@R:
     person(given = "Michael",
            family = "Koohafkan",
@@ -22,7 +22,9 @@ Suggests:
     knitr (>= 1.21),
     rmarkdown (>= 1.11),
     testthat (>= 2.1.0),
-    rstudioapi (>= 0.7)
+    rstudioapi (>= 0.7),
+    sf,
+    terra
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

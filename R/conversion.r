@@ -91,6 +91,9 @@ raster_from_arcpy = function(x, ...) {
 #' @keywords internal
 feature_to_arcpy = function(x, ...) {
   requireNamespace("sf")
+  if (anyNA(x)) {
+    stop("NA attributes are not supported by ArcGIS.")
+  }
   tf = tempfile(fileext = ".geojson")
   out = tempfile(fileext = ".geojson")
   sf::st_write(x, tf)

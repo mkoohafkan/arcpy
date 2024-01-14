@@ -4,9 +4,21 @@ test_that("R to ArcGIS conversion works", {
   requireNamespace("sf")
   requireNamespace("terra")
 
+  raster1 = terra::rast(matrix(1:25, nrow=5, ncol=5))
   fc = sf::st_read(system.file("CA_Counties",
       "CA_Counties_TIGER2016.shp", package = "arcpy"))
-  to_arcpy(fc)
+
+  expect_s3_class(
+    to_arcpy(na.omit(fc)),
+    "arcpy.arcobjects.arcobjects.Result"
+  )
+  expect_error(to_arcpy(fc),
+    "NA attributes are not supported by ArcGIS.")
+
+  expect_s3_class(
+    to_arcpy(raster1),
+    "arcpy.sa.Raster.Raster"
+  )
 
 })
 

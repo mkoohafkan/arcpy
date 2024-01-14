@@ -83,7 +83,7 @@ install_arcpy = function(method = "conda", conda = "auto",
   if (is.null(python_version)) {
     python_version = env_versions$python
   }
-  packages = c(sprintf("arcpy==%s", env_versions$arcpy), extra_packages)  
+  packages = c(sprintf("arcpy==%s", env_versions$arcpy), extra_packages)
 
   # set pip to FALSE, arcpy installed via Conda
   py_install(packages = packages, envname = envname,

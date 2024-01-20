@@ -3,6 +3,7 @@
 \docType{package}
 \name{arcpy-package}
 \alias{arcpy-package}
+\alias{_PACKAGE}
 \alias{arcpy}
 \title{Interface to ArcPy}
 \description{
@@ -14,4 +15,8 @@ See the vignettes to get started.
 }
 \seealso{
 \code{\link[=install_arcpy]{install_arcpy()}}
+}
+\author{
+\strong{Maintainer}: Michael Koohafkan \email{michael.koohafkan@gmail.com}
+
 }

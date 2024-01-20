@@ -55,6 +55,8 @@ arcpy_version = function(version, conda = "auto", channel = "esri", forge = TRUE
 #'   specified by `envname` is deleted first.
 #'
 #' @param ... other arguments passed to [`reticulate::conda_install()`].
+#' @return (Invisible) `TRUE` if the Conda environment was created
+#'   successfully.
 #'
 #' @details The Conda environment must be configured to match the
 #'   ArcGIS Pro version currently installed. If ArcGIS Pro is updated,

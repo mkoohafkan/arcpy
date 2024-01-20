@@ -1,12 +1,15 @@
 Package: arcpy
-Title: Interface to ArcGIS Python Modules
+Title: Interface to 'ArcGIS' 'Python' Modules
 Version: 0.4-0
 Authors@R:
     person(given = "Michael",
            family = "Koohafkan",
            role = c("aut", "cre"),
            email = "michael.koohafkan@gmail.com")
-Description: An interface to the ArcGIS 'arcpy' and `arcgis` Python modules.
+Description: An interface to the 'ArcGIS' 'arcpy' and 'arcgis' 'python' modules.
+    Provides various tools for installing and configuring a 'Conda' environment
+    for accessing 'ArcGIS' geoprocessing functions. Helper functions for
+    manipulating and converting 'ArcGIS' objects from R are also provided.
 URL: https://github.com/mkoohafkan/arcpy,
     https://hydroecology.net/arcpy/
 BugReports: https://github.com/mkoohafkan/arcpy/issues

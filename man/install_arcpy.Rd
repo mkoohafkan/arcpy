@@ -60,6 +60,10 @@ repository?}
 \item{new_env}{If \code{TRUE}, any existing Python conda environment
 specified by \code{envname} is deleted first.}
 }
+\value{
+(Invisible) \code{TRUE} if the Conda environment was created
+successfully.
+}
 \description{
 Create a Conda environment with the "arcpy" module.
 }

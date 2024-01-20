@@ -11,4 +11,4 @@
 #' @docType package
 #' @md
 #' @seealso [install_arcpy()]
-NULL
+"_PACKAGE"

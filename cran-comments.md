@@ -1,11 +1,12 @@
 Resubmission to CRAN. Fixes the following notes:
 
 - All references to package names, software names and
-  API names in single quotes in title and description.
+  API names are in single quotes in title and description.
 - Added more details about the package functionality
   and implemented methods in the Description text.
 - Added missing "value" Rd-tag to `install_arcpy()`
   documentation.
+- Added ArcGIS API reference to DESCRIPTION.
 
 Because this package requires ArcGIS Pro to be
 installed, \dontrun{} is used to wrap all examples

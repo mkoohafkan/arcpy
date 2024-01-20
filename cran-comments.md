@@ -1,7 +1,16 @@
-This is the first submission of this package to CRAN. 
+Resubmission to CRAN. Fixes the following notes:
+
+- All references to package names, software names and
+  API names in single quotes in title and description.
+- Added more details about the package functionality
+  and implemented methods in the Description text.
+- Added missing "value" Rd-tag to `install_arcpy()`
+  documentation.
 
 Because this package requires ArcGIS Pro to be
-installed, automated testing via CI is not possible. 
+installed, \dontrun{} is used to wrap all examples
+as they cannot be executed without it. For the same
+reason, automated testing via CI is not possible. 
 Testing is done on the local machine via the generation of the
 vignettes and very basic tests of sucessful connection to ArcGIS
 using package `testthat` tests. Github Actions is used to verify 

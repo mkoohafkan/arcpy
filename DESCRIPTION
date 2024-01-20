@@ -6,7 +6,8 @@ Authors@R:
            family = "Koohafkan",
            role = c("aut", "cre"),
            email = "michael.koohafkan@gmail.com")
-Description: An interface to the 'ArcGIS' 'arcpy' and 'arcgis' 'python' modules.
+Description: An interface to the 'ArcGIS' 'arcpy' and 'arcgis' 'python' API
+    <https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/arcgis-api-for-python.htm>.
     Provides various tools for installing and configuring a 'Conda' environment
     for accessing 'ArcGIS' geoprocessing functions. Helper functions for
     manipulating and converting 'ArcGIS' objects from R are also provided.

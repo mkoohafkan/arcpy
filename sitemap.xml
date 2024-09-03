@@ -1,84 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/articles/helper-functions.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/manipulating-arcobjects.html</loc>
-  </url>
-  <url>
-    <loc>/articles/quickstart.html</loc>
-  </url>
-  <url>
-    <loc>/articles/raster-math.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/arcpy-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/arcpy_version.html</loc>
-  </url>
-  <url>
-    <loc>/reference/da_drop.html</loc>
-  </url>
-  <url>
-    <loc>/reference/da_fields.html</loc>
-  </url>
-  <url>
-    <loc>/reference/da_insert.html</loc>
-  </url>
-  <url>
-    <loc>/reference/da_read.html</loc>
-  </url>
-  <url>
-    <loc>/reference/da_update.html</loc>
-  </url>
-  <url>
-    <loc>/reference/feature_from_arcpy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/feature_to_arcpy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fields_exist.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/install_arcpy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/raster_from_arcpy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/raster_to_arcpy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>/reference/to_arcpy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tokens.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/articles/helper-functions.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/manipulating-arcobjects.html</loc></url>
+<url><loc>/articles/quickstart.html</loc></url>
+<url><loc>/articles/raster-math.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/arcpy-package.html</loc></url>
+<url><loc>/reference/arcpy_version.html</loc></url>
+<url><loc>/reference/da_drop.html</loc></url>
+<url><loc>/reference/da_fields.html</loc></url>
+<url><loc>/reference/da_insert.html</loc></url>
+<url><loc>/reference/da_read.html</loc></url>
+<url><loc>/reference/da_update.html</loc></url>
+<url><loc>/reference/feature_from_arcpy.html</loc></url>
+<url><loc>/reference/feature_to_arcpy.html</loc></url>
+<url><loc>/reference/fields_exist.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/install_arcpy.html</loc></url>
+<url><loc>/reference/raster_from_arcpy.html</loc></url>
+<url><loc>/reference/raster_to_arcpy.html</loc></url>
+<url><loc>/reference/reexports.html</loc></url>
+<url><loc>/reference/to_arcpy.html</loc></url>
+<url><loc>/reference/tokens.html</loc></url>
 </urlset>
+
